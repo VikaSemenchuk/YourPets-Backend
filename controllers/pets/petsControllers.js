@@ -1,5 +1,18 @@
 const fs = require('fs/promises');
 const Pet = require('../../models/pets/pets');
+const storage = require('../index')
+require('dotenv').config('./.env');
+
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({ 
+  cloud_name: 'dxmtevsut', 
+  api_key: process.env.CLOUD_API_KEY, 
+  api_secret: process.env.CLOUD_API_SECRET 
+});
+
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const upload = multer({ storage });
 
 const listPets = async (req, res) => {
   const { _id: owner } = req.user;
@@ -28,6 +41,22 @@ const addPet = async (req, res) => {
     }
 }
 
+const addPetImg = async (req, res) => {
+  const { _id: owner } = req.user;
+  const { id } = req.params;
+  try {
+    if (!req.file) {
+      res.status(500).json({ message: 'Your file is not valid or added' })
+    }
+    const petI = await Pet.findByIdAndUpdate(id, owner, { fileURL: req.file.path });
+    res.status(200).json(petI);
+  }
+  catch (err) {
+    console.log(err)
+    res.status(500);
+  }
+}
+
 const removePet = async (req, res) => {
     const { _id: owner } = req.user;
   try {
@@ -46,6 +75,7 @@ const removePet = async (req, res) => {
 
 module.exports = {
     listPets,
-    addPet,
+  addPet,
+    addPetImg,
     removePet
 }

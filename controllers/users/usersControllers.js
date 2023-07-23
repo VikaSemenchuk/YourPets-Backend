@@ -1,5 +1,7 @@
 const User = require('../../models/users/users');
 const { subscpiptionUserUpdateValiadation } = require('../../valiadators/joiValiadator');
+const path  = require('path');
+var Jimp = require("jimp");
 
 const getCurrent = async (req, res) => {
     try {
@@ -19,13 +21,6 @@ const getCurrent = async (req, res) => {
 const changeUserData = async (req, res) => {
     const { name, email, birthday, phone, city } = req.body;
     try {
-    // const { error, fieldName } = subscpiptionUserUpdateValiadation(subscription);
-    // if (error) {
-    //   return res.status(400).json({
-    //     message: `missing required ${fieldName} field`
-    //   })
-    // }
-// !!! поля не должны быть пустыми, если пустые передать старые значения.
         const { id } = req.user;
         const renewUser = await User.findByIdAndUpdate(id, { name, email, birthday, phone, city });
         return res.status(201).json(renewUser);

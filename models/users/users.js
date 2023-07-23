@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 const emailRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/ 
-
+const gravatar = require('gravatar');
 
 const userSchema = mongoose.Schema(
     {
@@ -37,7 +37,8 @@ const userSchema = mongoose.Schema(
             default: null,
         },
         avatarURL: {
-            type: String
+            type: String,
+            default: gravatar.url('cats@gmail.com', {s:500})
         },
         favorites: {
             type: Array,

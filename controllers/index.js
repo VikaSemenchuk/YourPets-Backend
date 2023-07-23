@@ -8,16 +8,16 @@ const { removeNotice } = require('./notices/removeNotice');
 const { addNotice } = require('./notices/addNotice');
 const { getAllNotices } = require('./notices/getAllNotices');
 const { filterNotices } = require('./notices/filterNotices');
-const { updateStatusContact } = require('./notices/updateStatusNotice');
-const { changeAvatarImg } = require('./users/changeAvatarImg');
+const { updateImgNotice } = require('./notices/updateImgNotice');
+const { changeAvatarImg, upload, storage } = require('./users/changeAvatarImg');
 const { addFavorites, removeFavorites, getFavorites} = require('./users/updateFavorites')
-const { listPets, addPet, removePet } = require('./pets/petsControllers')
+const { listPets, addPet,addPetImg, removePet } = require('./pets/petsControllers')
 
 
 
 module.exports = {
     signup, login, logout,
     getCurrent, changeUserData,
-    listNotices, getNoticeById, removeNotice, addNotice, updateStatusContact, changeAvatarImg, getAllNotices,
-    listPets, addPet, removePet, filterNotices, addFavorites, removeFavorites, getFavorites
+    listNotices, getNoticeById, removeNotice, addNotice, updateImgNotice, changeAvatarImg, getAllNotices,
+    listPets, addPet, addPetImg, removePet, filterNotices, addFavorites, removeFavorites, getFavorites, upload, storage
 }
