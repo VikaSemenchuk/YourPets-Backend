@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const signToken = require('../../helpers/signToken');
 const User = require('../../models/users/users');
-const {  loginValiadation } = require('../../valiadators/joiValiadator');
+// const {  loginValiadation } = require('../../valiadators/joiValiadator');
 
 
 const login = async (req, res) => {

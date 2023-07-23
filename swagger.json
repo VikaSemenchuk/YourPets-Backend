@@ -1,0 +1,390 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "yourPets",
+      "description": "API for finding loving families for pets.",
+      "version": "1.0"
+    },
+    "produces": ["application/json", "multipart/form-data"],
+    "servers": [{"url": "http://localhost:3000/api"}, {"url": "https://yourpets.onrender.com/api"}],
+    "tags": [
+{
+    "name": "users",
+    "description": "Authorization endpoints"
+},
+{
+    "name": "notices",
+    "description": "Notices endpoints"
+},
+{
+    "name": "pets",
+    "description": "Pets endpoints"
+}
+    ],
+    "paths": {
+      "/users/register": {
+        "post": {
+            "tags": ["users"],
+            "summary": "User registration",
+
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+
+          "responses": {}
+          
+        }
+      },
+
+      "/users/login": {
+        "post": {
+            "tags": ["users"],
+            "summary": "User login",
+
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+
+          "responses": {}
+          
+        }
+      },
+      
+      "/users/logout": {
+        "post": {
+            "tags": ["users"],
+            "summary": "User logout",
+
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+
+          "responses": {}
+        }
+      },
+
+      "/users/current": {
+        "get": {
+            "tags": ["users"],
+            "summary": "Get the currently logged-in user",
+
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+
+          "responses": {}
+        }
+      },
+
+
+      "/notices": {
+        "get": {
+            "tags": ["notices"],
+            "summary": "Get all notice",
+
+            "parameters": [{
+              "name": "id",
+              "in": "path",
+              "type": "string"
+            }
+        ],
+          "responses": {}
+        },
+        "post": {
+            "tags": ["notices"],
+            "summary": "Add new notice",
+
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+
+          "responses": {}
+        }
+      },
+
+      "/notices/search": {
+         "get": {
+            "tags": ["notices"],
+            "summary": "Filter notice",
+
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+
+          "responses": {}
+        }
+       },
+      "/notices/owner": {
+         "get": {
+            "tags": ["notices"],
+            "summary": "User's list of notices",
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+          "responses": {}
+        },
+        "delete": {
+            "tags": ["notices"],
+            "summary": "Delete notices by id",
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+          "responses": {}
+        }
+    },
+
+      "/notices/:id/favorite": {
+         "put": {
+            "tags": ["notices"],
+            "summary": "User's list of notices",
+            "parameters": [{
+              "name": "id",
+              "in": "path",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+          "responses": {}
+        }
+       },
+
+
+
+      "/pets": {
+         "get": {
+            "tags": ["pets"],
+            "summary": "Get pet's list",
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+          "responses": {}
+        },
+        "post": {
+            "tags": ["pets"],
+            "summary": "Add new pet",
+
+            "parameters": [{
+              "name": "test",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+
+          "responses": {}
+        },
+         "delete": {
+            "tags": ["pets"],
+            "summary": "Remove pet by id",
+            "parameters": [{
+              "name": "id",
+              "in": "formData",
+              "type": "array",
+              "collectionFormat": "multi",
+              "items": {
+                "type": "integer"
+               }
+            },
+          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
+          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
+          "security": [{"Bearer": []}],
+          "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {}
+                }
+            }
+          },
+          "responses": {}
+        }
+    }
+    },
+   "securityDefinitions": {
+     "api_key": {
+       "type": "apiKey",
+       "name": "api_key",
+       "in":"header"
+     }
+   }
+ }
+ 
