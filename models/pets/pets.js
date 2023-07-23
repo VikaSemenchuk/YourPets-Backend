@@ -23,7 +23,8 @@ const petSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
-     fileURL: String
+    fileURL:
+      { type: String }
   },
     {
       timestamps: true,

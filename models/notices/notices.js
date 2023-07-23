@@ -41,7 +41,7 @@ const noticeSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
-     fileURL: String
+    fileURL: String,
   },
     {
       timestamps: true,

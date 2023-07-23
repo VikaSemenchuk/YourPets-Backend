@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {filterNotices, listNotices, getNoticeById, removeNotice, addNotice, updateStatusContact, getAllNotices} = require('../../controllers/index')
+const {filterNotices, listNotices, getNoticeById, removeNotice, addNotice, updateImgNotice, getAllNotices, upload} = require('../../controllers/index')
 const authenticate = require('../../middlewares/authMiddleware');
 
 router.get('/', getAllNotices)
@@ -15,7 +15,7 @@ router.delete('/:id', authenticate, removeNotice)
 
 router.get('/owner', authenticate, listNotices)
 
-router.put('/:id/favorite', authenticate, updateStatusContact)
+router.patch('/avatar/:id', authenticate, upload.single("img"), updateImgNotice)
 
 
 module.exports = router
