@@ -7,7 +7,11 @@ const upload = require('../../middlewares/uploadMiddleware');
 router.post('/register', signup);
 router.post('/login', login);
 router.post('/logout', authenticate, logout);
-router.post('/current', authenticate, getCurrent);
+// router.post('/current', authenticate, getCurrent);
+router.get('/current', authenticate, getCurrent);
+
+
+
 router.patch('/:id', authenticate, addFavorites);
 router.delete('/:id', authenticate, removeFavorites);
 router.get('/favorites', authenticate, getFavorites);
