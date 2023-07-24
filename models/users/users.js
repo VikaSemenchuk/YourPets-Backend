@@ -7,7 +7,9 @@ const userSchema = mongoose.Schema(
     {
         name: {
             type: String,
+            default: 'User',
             required: [true, 'Name is required'],
+           
     },
         password: {
             type: String,
@@ -21,7 +23,7 @@ const userSchema = mongoose.Schema(
         },
         birthday: {
             type: Date,
-            default: Date.now
+            default: ""
         },
         phone: {
             type: String,

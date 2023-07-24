@@ -22,8 +22,9 @@ const changeUserData = async (req, res) => {
     const { name, email, birthday, phone, city } = req.body;
     try {
         const { id } = req.user;
-        const renewUser = await User.findByIdAndUpdate(id, { name, email, birthday, phone, city });
-        return res.status(201).json(renewUser);
+        const renewUser = await User.findByIdAndUpdate(id, req.body,  { new: true });
+        // const renewUser = await User.findByIdAndUpdate(id, { name, email, birthday, phone, city });
+        return  res.status(201).json(renewUser);
     } catch (err) {
         console.log(err)
         res.status(500).json({ message: 'Ooops... Something wrong in DB' });
