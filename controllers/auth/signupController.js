@@ -18,8 +18,12 @@ const signup = async (req, res, next) => {
         message: "Email in use",
       });
     }
+    console.log('password :>> ', password);
+
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ ...req.body, password: hashPassword });
+    
+    console.log('newUser :>> ', newUser);
     return res
       .status(201)
       .json({

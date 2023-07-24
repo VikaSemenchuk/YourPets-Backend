@@ -15,13 +15,17 @@ const login = async (req, res) => {
         //     })
         // }
         const { email, password } = req.body;
+        // console.log('password :>> ', password);
         const userI = await User.findOne({ email });
+        // console.log('userI :>> ', userI);
         if (!userI) {
             return res.status(401).json({
                 message: "Email or password is wrong"
             });
         }
         const passwordIsValid = await bcrypt.compare(password, userI.password);
+        // console.log('passwordIsValid :>> ', passwordIsValid);
+        
         if (!passwordIsValid) {
             return res.status(401).json({
                 message: "Email or password is wrong"
@@ -30,6 +34,8 @@ const login = async (req, res) => {
         const payload = {
             id: userI._id
         }
+        
+        // console.log('payload :>> ', payload);
 
         const token = await signToken(payload);
         await User.findByIdAndUpdate(userI._id, { token });
