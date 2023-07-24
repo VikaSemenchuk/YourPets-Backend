@@ -1,390 +1,934 @@
 {
     "openapi": "3.0.1",
     "info": {
-      "title": "yourPets",
-      "description": "API for finding loving families for pets.",
-      "version": "1.0"
+        "title": "yourPets",
+        "description": "API for finding loving families for pets.",
+        "version": "1.0"
     },
-    "produces": ["application/json", "multipart/form-data"],
-    "servers": [{"url": "http://localhost:3000/api"}, {"url": "https://yourpets.onrender.com/api"}],
+    "consumes": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "produces": [
+        "application/json",
+        "multipart/form-data"
+    ],
+    "servers": [
+        {
+            "url": "http://localhost:3000/api"
+        },
+        {
+            "url": "https://yourpets.onrender.com/api"
+        }
+    ],
     "tags": [
-{
-    "name": "users",
-    "description": "Authorization endpoints"
-},
-{
-    "name": "notices",
-    "description": "Notices endpoints"
-},
-{
-    "name": "pets",
-    "description": "Pets endpoints"
-}
+        {
+            "name": "Users",
+            "description": "Authorization endpoints"
+        },
+        {
+            "name": "Notices",
+            "description": "Notices endpoints"
+        },
+        {
+            "name": "Pets",
+            "description": "Pets endpoints"
+        }
     ],
     "paths": {
-      "/users/register": {
-        "post": {
-            "tags": ["users"],
-            "summary": "User registration",
-
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
+        "/users/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User registration",
+                "parameters": [],
+                "requestBody": {
+                    "description": "Registration's object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/RegistrationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User authorized successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/RegistrationResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "409": {
+                        "description": "Email in use",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
                 }
             }
-          },
-
-          "responses": {}
-          
-        }
-      },
-
-      "/users/login": {
-        "post": {
-            "tags": ["users"],
-            "summary": "User login",
-
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
-            }
-          },
-
-          "responses": {}
-          
-        }
-      },
-      
-      "/users/logout": {
-        "post": {
-            "tags": ["users"],
-            "summary": "User logout",
-
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
-            }
-          },
-
-          "responses": {}
-        }
-      },
-
-      "/users/current": {
-        "get": {
-            "tags": ["users"],
-            "summary": "Get the currently logged-in user",
-
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
-            }
-          },
-
-          "responses": {}
-        }
-      },
-
-
-      "/notices": {
-        "get": {
-            "tags": ["notices"],
-            "summary": "Get all notice",
-
-            "parameters": [{
-              "name": "id",
-              "in": "path",
-              "type": "string"
-            }
-        ],
-          "responses": {}
         },
-        "post": {
-            "tags": ["notices"],
-            "summary": "Add new notice",
-
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
+        "/users/avatar": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Add user's avatar",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
             }
-          },
-
-          "responses": {}
-        }
-      },
-
-      "/notices/search": {
-         "get": {
-            "tags": ["notices"],
-            "summary": "Filter notice",
-
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
-            }
-          },
-
-          "responses": {}
-        }
-       },
-      "/notices/owner": {
-         "get": {
-            "tags": ["notices"],
-            "summary": "User's list of notices",
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
-            }
-          },
-          "responses": {}
         },
-        "delete": {
-            "tags": ["notices"],
-            "summary": "Delete notices by id",
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
+        "/users/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User login",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/LoginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Email or password is wrong",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
                 }
             }
-          },
-          "responses": {}
+        },
+        "/users/update/{id}": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update user's information",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/users/logout": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User logout",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/LogoutRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "content": {}
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/users/current": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get information of the currently logged-in user",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Request successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetUserInfoResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Email or password is wrong",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        
+        "/notices": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Get all notices",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string"
+                    }
+                ],
+                "responses": {}
+            },
+            "post": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Add new notice",
+                "parameters": [
+                    {
+                        "name": "test",
+                        "in": "formData",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/notices/{id}": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Get notice by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string"
+                    }
+                ],
+                "responses": {}
+            },
+            "delete": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Delete notice by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string"
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/notices/search": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Filter notice",
+                "parameters": [
+                    {
+                        "name": "test",
+                        "in": "formData",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/notices/owner": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "User's list of notices",
+                "parameters": [
+                    {
+                        "name": "test",
+                        "in": "formData",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/notices/{id}/favorite": {
+            "put": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Add notice to favorite by authorized users",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/pets": {
+            "get": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Get list of user's pets",
+                "parameters": [
+                    {
+                        "name": "test",
+                        "in": "formData",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            },
+            "post": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Add new pet by authorized user",
+                "parameters": [
+                    {
+                        "name": "test",
+                        "in": "formData",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/pets/{id}": {
+            "delete": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Remove pet by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
+        },
+        "/pets/avatar/{id}": {
+            "patch": {
+                "tags": [
+                    "Pets"
+                ],
+                "summary": "Remove pet by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "array",
+                        "collectionFormat": "multi",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "profileId",
+                        "in": "formData",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "type": "file",
+                        "required": "true"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
+            }
         }
     },
-
-      "/notices/:id/favorite": {
-         "put": {
-            "tags": ["notices"],
-            "summary": "User's list of notices",
-            "parameters": [{
-              "name": "id",
-              "in": "path",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
+    "components": {
+        "schemas": {
+            "RegistrationRequest": {
+                "type": "object",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "User's name",
+                        "example": "User"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "Qwer12"
+                    }
+                }
             },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
+            "LoginRequest": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User's email",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User's password",
+                        "example": "Qwer12"
+                    }
+                }
+            },
+            "LogoutRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "User's id",
+                        "example": "jgnhdjugjudhbjvduguj"
+                    }
+                }
+            },
+
+            "RegistrationResponse": {
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "format": "email"
+                            }
+                        }
+                    }
+                }
+            },
+            "LoginResponse": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "Users token",
+                        "example": "hmfghmcfhgfjhgfjgj.dfhdjfjmhgmfhjcnbncfgnchbvgfgfgfhgjfg.ghgjhtgjhjfnbgvnfhhfdygbnvggkghdkfhgk"
+                    },
+                    "user": {
+                        "type": "object",
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "format": "email"
+                            }
+                        }
+                    }
+                }
+            },
+            "GetUserInfoResponse": {
+                "type": "object",
+                "properties": {
+                    "userI": {
+                        "type": "object",
+                        "properties": {
+                            "_id": {
+                                "type": "string",
+                                "description": "User's id",
+                                "example": "64hn9bdbdrekmv"
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "User's name",
+                                "example": "User"
+                            },
+                            "email": {
+                                "type": "string",
+                                "description": "User's email",
+                                "format": "email"
+                            },
+                            "password": {
+                                "type": "string",
+                                "description": "User's password",
+                                "example": "Qwer12"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "description": "User's birthday date",
+                                "format": "date-time"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "description": "User's phone number",
+                                "example": "+380000000000"
+                            },
+                            "city": {
+                                "type": "string",
+                                "description": "User's city",
+                                "example": "City"
+                            },
+                            "token": {
+                                "type": "string",
+                                "description": "User's security token",
+                                "example": "bghfdtgbvfygbvyg.jughvjfhtgjvrthbjyfv.mjdhvgjfgbjvgj"
+                            },
+                            "avatarURL": {
+                                "type": "string",
+                                "description": "User's avatar",
+                                "example": "//www.example.com/avatar/djghjthgjhhj7tjf7tbgty"
+                            },
+                            "favorites": {
+                                "type": "array",
+                                "description": "User's favorite notice",
+                                "items": {
+                                    "type": "object",
+                                    "description": "Array of user's favorite notices",
+                                    "properties": {
+                                        "_id": {
+                                            "type": "string",
+                                            "description": "Id of user's favorite notice",
+                                            "example": "64hn9bdbdrekmv"
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "description": "Category of notice",
+                                            "example": "for-free"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "description": "Name of pet",
+                                            "example": "User"
+                                        },
+                                        "date": {
+                                            "type": "string",
+                                            "description": "Birthday date of pet",
+                                            "format": "date-time"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "Type of pet in notice",
+                                            "example": "dog"
+                                        },
+                                        "sex": {
+                                            "type": "string",
+                                            "description": "Sex of pet in notice",
+                                            "example": "dog"
+                                        },
+                                        "location": {
+                                            "type": "string",
+                                            "description": "Location of pet in notice",
+                                            "example": "City"
+                                        },
+                                        "price": {
+                                            "type": "integer",
+                                            "description": "Price for pet in notice",
+                                            "example": "12"
+                                        },
+                                        "comments": {
+                                            "type": "string",
+                                            "description": "Comment to notice",
+                                            "example": "Comment for example"
+                                        },
+                                        "owner": {
+                                            "type": "string",
+                                            "description": "User's id",
+                                            "example": "fmhdjrg7rgbghy7"
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "description": "Date of creating notice",
+                                            "example": "date-time"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string",
+                                            "description": "Date of updating notice",
+                                            "example": "date-time"
+                                        }
+                                    }
+                                }
+                            },
+                            "createdAt": {
+                                "type": "string",
+                                "description": "Date of creating user",
+                                "example": "date-time"
+                            },
+                            "updatedAt": {
+                                "type": "string",
+                                "description": "Date of updating user",
+                                "example": "date-time"
+                            }
+                        }
+                    }
                 }
             }
-          },
-          "responses": {}
-        }
-       },
-
-
-
-      "/pets": {
-         "get": {
-            "tags": ["pets"],
-            "summary": "Get pet's list",
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
-            }
-          },
-          "responses": {}
         },
-        "post": {
-            "tags": ["pets"],
-            "summary": "Add new pet",
-
-            "parameters": [{
-              "name": "test",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
+        "securitySchemes": {
+            "Bearer": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
-          },
-
-          "responses": {}
-        },
-         "delete": {
-            "tags": ["pets"],
-            "summary": "Remove pet by id",
-            "parameters": [{
-              "name": "id",
-              "in": "formData",
-              "type": "array",
-              "collectionFormat": "multi",
-              "items": {
-                "type": "integer"
-               }
-            },
-          { "name": "profileId", "in": "formData", "required": true, "type": "string" },
-          { "name": "file", "in": "formData", "type": "file", "required": "true" }],
-          "security": [{"Bearer": []}],
-          "requestBody": {
-            "required": true,
-            "content": {
-                "application/json": {
-                    "schema": {}
-                }
-            }
-          },
-          "responses": {}
         }
     }
-    },
-   "securityDefinitions": {
-     "api_key": {
-       "type": "apiKey",
-       "name": "api_key",
-       "in":"header"
-     }
-   }
- }
- 
+}

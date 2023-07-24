@@ -14,7 +14,7 @@ const addFavorites = async (req, res) => {
         return res.status(200).json(newUser.favorites);   
     } catch (err) {
         console.log(err)
-        res.status(500).json({ message: 'Ooops... ListContacts'})
+        res.status(500).json({ message: 'Ooops... ListContacts'})//
     }
 }
 

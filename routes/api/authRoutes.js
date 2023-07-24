@@ -4,19 +4,19 @@ const { signup, login, logout, getCurrent, changeUserData, changeAvatarImg, addF
 const authenticate = require('../../middlewares/authMiddleware');
 // const upload = require('../../middlewares/uploadMiddleware');
 
-router.post('/register', signup);
-router.post('/login', login);
-router.post('/logout', authenticate, logout);
-router.post('/current', authenticate, getCurrent);
+router.post('/register', signup);//
+router.post('/login', login);//
+router.post('/logout', authenticate, logout);//
+router.get('/current', authenticate, getCurrent);// changed post on get
 
 router.patch('/:id', authenticate, addFavorites);
 router.delete('/:id', authenticate, removeFavorites);
 
 router.patch('/favorites/:id', authenticate, addFavorites);
-router.delete('/favorites/:id', authenticate, removeFavorites);
+router.delete('/favorites/:id', authenticate, removeFavorites); // це пункт 18???
 
-router.get('/favorites', authenticate, getFavorites);
-router.patch('/', authenticate, changeUserData);
-router.patch('/avatar', authenticate, upload.single("avatar"), changeAvatarImg);
+router.get('/favorites', authenticate, getFavorites); //це пункт 17????
+router.patch('/update/:id', authenticate, changeUserData); // added update before id?????? 
+router.patch('/avatar', authenticate, upload.single("avatar"), changeAvatarImg);// може тут також id треба
 
 module.exports = router 

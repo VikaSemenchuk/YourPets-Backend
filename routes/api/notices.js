@@ -11,7 +11,7 @@ router.get('/:id', getNoticeById)
 
 router.post('/', authenticate, addNotice)
 
-router.delete('/:id', authenticate, removeNotice)
+router.delete('/owner/:id', authenticate, removeNotice) // add /owner
 
 router.get('/owner', authenticate, listNotices)
 
