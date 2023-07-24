@@ -15,10 +15,10 @@
     ],
     "servers": [
         {
-            "url": "https://yourpets.onrender.com/api"
+            "url": "http://localhost:3000/api"
         },
         {
-            "url": "http://localhost:3000/api"
+            "url": "https://yourpets.onrender.com/api"
         }
     ],
     "tags": [
@@ -395,10 +395,31 @@
                     {
                         "name": "id",
                         "in": "path",
-                        "type": "string"
+                        "type": "string",
+                        "required":true,
+                        "description": "Notice's id"
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "Request success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticeByIdResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
             },
             "delete": {
                 "tags": [
@@ -901,6 +922,8 @@
                     }
                 }
             },
+
+
             "RegistrationResponse": {
                 "type": "object",
                 "properties": {
@@ -1347,6 +1370,74 @@
                         }
                     }
                 }
+            },
+            "GetNoticeByIdResponse": {
+            
+                    "type": "object",
+                    "description": "Notice",
+                    "properties": {
+                        "_id": {
+                            "type": "string",
+                            "description": "Id of user's favorite notice",
+                            "example": "64hn9bdbdrekmv"
+                        },
+                        "category": {
+                            "type": "string",
+                            "description": "Category of notice",
+                            "example": "for-free"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "Name of pet",
+                            "example": "User"
+                        },
+                        "date": {
+                            "type": "string",
+                            "description": "Birthday date of pet",
+                            "format": "date-time"
+                        },
+                        "type": {
+                            "type": "string",
+                            "description": "Type of pet in notice",
+                            "example": "dog"
+                        },
+                        "sex": {
+                            "type": "string",
+                            "description": "Sex of pet in notice",
+                            "example": "female"
+                        },
+                        "location": {
+                            "type": "string",
+                            "description": "Location of pet in notice",
+                            "example": "City"
+                        },
+                        "price": {
+                            "type": "integer",
+                            "description": "Price for pet in notice",
+                            "example": "12"
+                        },
+                        "comments": {
+                            "type": "string",
+                            "description": "Comment to notice",
+                            "example": "Comment for example"
+                        },
+                        "owner": {
+                            "type": "string",
+                            "description": "User's id",
+                            "example": "fmhdjrg7rgbghy7"
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "description": "Date of creating notice",
+                            "example": "date-time"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "description": "Date of updating notice",
+                            "example": "date-time"
+                        }
+                    }
+                
             }
         },
         "securitySchemes": {

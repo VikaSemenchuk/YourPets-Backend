@@ -45,8 +45,8 @@ const login = async (req, res) => {
 
         return res.status(200).json({ token: token, user: { email: userI.email, subscription: userI.subscription } });
     } catch (err) {
-        console.log('err :>> ', err);
-        return res.status(500).json({ message: 'Ooops... Something wrong in DB'});
+        // console.log('err :>> ', err);
+        return res.status(500).json({ message: `Ooops... ${err.message}`});
     }
 }
 

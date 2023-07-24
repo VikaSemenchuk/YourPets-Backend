@@ -18,20 +18,20 @@ const signup = async (req, res, next) => {
         message: "Email in use",
       });
     }
-    console.log('password :>> ', password);
+    // console.log('password :>> ', password);
 
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ ...req.body, password: hashPassword });
-    
-    console.log('newUser :>> ', newUser);
+
+    // console.log('newUser :>> ', newUser);
     return res
       .status(201)
       .json({
         user: { email: newUser.email, subscription: newUser.subscription },
       });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "Ooops... Something wrong in DB" });
+    // console.log(err);
+    res.status(500).json({ message: `Ooops... ${err.message}` });
   }
 };
 
