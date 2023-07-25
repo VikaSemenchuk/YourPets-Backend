@@ -86,7 +86,7 @@
                     "Users"
                 ],
                 "summary": "Add user's avatar",
-                "parameters": [ ],
+                "parameters": [],
                 "security": [
                     {
                         "Bearer": []
@@ -388,7 +388,7 @@
                         "name": "id",
                         "in": "path",
                         "type": "string",
-                        "required":true,
+                        "required": true,
                         "description": "Notice's id"
                     }
                 ],
@@ -413,7 +413,6 @@
                     }
                 }
             }
-           
         },
         "/notices/users/{id}": {
             "delete": {
@@ -427,7 +426,7 @@
                         "in": "path",
                         "type": "string",
                         "description": "Notice's id",
-                        "required":true
+                        "required": true
                     }
                 ],
                 "security": [
@@ -440,7 +439,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref":"#components/schemas/DeleteNoticeByIdRequest"
+                                "$ref": "#components/schemas/DeleteNoticeByIdRequest"
                             }
                         }
                     }
@@ -522,9 +521,7 @@
                         "description": "Request success",
                         "content": {
                             "application/json": {
-                                "schema": {
-                                    
-                                }
+                                "schema": {}
                             }
                         }
                     },
@@ -892,8 +889,6 @@
                     }
                 }
             },
-
-
             "RegistrationResponse": {
                 "type": "object",
                 "properties": {
@@ -1392,76 +1387,72 @@
                 }
             },
             "GetNoticeByIdResponse": {
-                
                 "type": "object",
                 "description": "Notice",
-                    "properties": {
-                        "_id": {
-                            "type": "string",
-                            "description": "Id of user's favorite notice",
-                            "example": "64hn9bdbdrekmv"
-                        },
-                        "category": {
-                            "type": "string",
-                            "description": "Category of notice",
-                            "example": "for-free"
-                        },
-                        "name": {
-                            "type": "string",
-                            "description": "Name of pet",
-                            "example": "User"
-                        },
-                        "date": {
-                            "type": "string",
-                            "description": "Birthday date of pet",
-                            "format": "date-time"
-                        },
-                        "type": {
-                            "type": "string",
-                            "description": "Type of pet in notice",
-                            "example": "dog"
-                        },
-                        "sex": {
-                            "type": "string",
-                            "description": "Sex of pet in notice",
-                            "example": "female"
-                        },
-                        "location": {
-                            "type": "string",
-                            "description": "Location of pet in notice",
-                            "example": "City"
-                        },
-                        "price": {
-                            "type": "integer",
-                            "description": "Price for pet in notice",
-                            "example": "12"
-                        },
-                        "comments": {
-                            "type": "string",
-                            "description": "Comment to notice",
-                            "example": "Comment for example"
-                        },
-                        "owner": {
-                            "type": "string",
-                            "description": "User's id",
-                            "example": "fmhdjrg7rgbghy7"
-                        },
-                        "createdAt": {
-                            "type": "string",
-                            "description": "Date of creating notice",
-                            "example": "date-time"
-                        },
-                        "updatedAt": {
-                            "type": "string",
-                            "description": "Date of updating notice",
-                            "example": "date-time"
-                        }
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "Id of user's favorite notice",
+                        "example": "64hn9bdbdrekmv"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Category of notice",
+                        "example": "for-free"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of pet",
+                        "example": "User"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Birthday date of pet",
+                        "format": "date-time"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of pet in notice",
+                        "example": "dog"
+                    },
+                    "sex": {
+                        "type": "string",
+                        "description": "Sex of pet in notice",
+                        "example": "female"
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "Location of pet in notice",
+                        "example": "City"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "description": "Price for pet in notice",
+                        "example": "12"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Comment to notice",
+                        "example": "Comment for example"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "description": "User's id",
+                        "example": "fmhdjrg7rgbghy7"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Date of creating notice",
+                        "example": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "Date of updating notice",
+                        "example": "date-time"
                     }
-                
+                }
             },
-            "DeletedNoticeByIdResponse": {
-                
-            },
+            "DeletedNoticeByIdResponse": {},
             "AddPetResponse": {
                 "type": "object",
                 "description": "Response after adding new pet",
@@ -1519,7 +1510,6 @@
                     }
                 }
             }
-
         },
         "securitySchemes": {
             "Bearer": {
