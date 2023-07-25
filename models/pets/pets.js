@@ -5,15 +5,15 @@ const petSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Set name for notice'],
+      required: [true, 'Set name for pet'],
     },
     date: {
       type: Date,
-      required: [true, 'Set date for notice'],
+      required: [true, 'Birthday date of pet'],
     },
     type: {
       type: String,
-      required: [true, 'Set type for notice'], 
+      required: [true, 'Set type for pet'], 
     },
     comments: {
       type: String,
