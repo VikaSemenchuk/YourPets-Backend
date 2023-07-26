@@ -34,6 +34,9 @@ const changeAvatarImg = async (req, res, next) => {
         if (!req.file) {
             res.status(500).json({ message: 'Your file is not valid or added' })
         }
+
+console.log('req.file :>> ', req.file);
+
         const { _id, avatarURL } = req.user
         const userI = await User.findByIdAndUpdate(_id, { avatarURL: req.file.path });
         res.status(200).json(userI);

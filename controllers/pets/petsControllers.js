@@ -66,7 +66,7 @@ const removePet = async (req, res) => {
     if (!item) {
       return res.status(404).json({ "message": "Not found" })
     }
-    return res.status(200).json({ "message": "pet deleted", PetsList });
+    return res.status(204).json({ "message": "pet deleted" });
   } catch (err) {
     console.log(err)
         res.status(400).json({ message: 'Ooops...'})

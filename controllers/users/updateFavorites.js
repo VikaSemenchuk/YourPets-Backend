@@ -25,7 +25,7 @@ const removeFavorites = async (req, res) => {
         if (!favNotice) {
             return res.status(404).json({message: 'Not found'});
         }
-        const newUser = await User.findByIdAndUpdate(req.user._id, { $pull: { favorites: favNotice } });
+        const newUser = await User.findByIdAndUpdate(req.user._id, { $pull: { favorites: favNotice } }, { new: true });
         return res.status(200).json(newUser.favorites); 
     } catch (err) {
         console.log(err)
@@ -37,6 +37,9 @@ const getFavorites = async (req, res) => {
     const { id } = req.user;
     try {
         const newUser = await User.findById(req.user._id);  
+
+console.log('newUser.favorites :>> ', newUser.favorites);
+
         return res.status(200).json(newUser.favorites);   
     } catch (err) {
         console.log(err)

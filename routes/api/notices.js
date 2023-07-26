@@ -4,6 +4,7 @@ const authenticate = require('../../middlewares/authMiddleware');
 const {filterNotices,  getNoticeById, removeNotice, addNotice, updateImgNotice, getAllNotices, listNotices, upload} = require('../../controllers/index')
 
 router.get('/', getAllNotices)
+
 router.get('/users', authenticate, listNotices)
 
 router.get('/search', filterNotices)

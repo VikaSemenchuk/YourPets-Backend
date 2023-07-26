@@ -9,14 +9,14 @@ router.post('/login', login);//
 router.post('/logout', authenticate, logout);//
 router.get('/current', authenticate, getCurrent);// changed post on get
 
-router.patch('/:id', authenticate, addFavorites);
-router.delete('/:id', authenticate, removeFavorites);
+// router.patch('/:id', authenticate, addFavorites);
+// router.delete('/:id', authenticate, removeFavorites);
 
-router.patch('/favorites/:id', authenticate, addFavorites);
-router.delete('/favorites/:id', authenticate, removeFavorites); // це пункт 18???
+router.patch('/favorite/:id', authenticate, addFavorites);
+router.delete('/favorite/:id', authenticate, removeFavorites); // це пункт 18???
+router.get('/favorite', authenticate, getFavorites); //це пункт 17????
 
-router.get('/favorites', authenticate, getFavorites); //це пункт 17????
-router.put('/update/:id', authenticate, changeUserData); // added update before id?????? 
+router.patch('/update', authenticate, changeUserData); // added update before id?????? 
 router.patch('/avatar', authenticate, upload.single("avatar"), changeAvatarImg);// може тут також id треба
 
 module.exports = router 

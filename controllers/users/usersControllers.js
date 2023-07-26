@@ -20,10 +20,12 @@ const getCurrent = async (req, res) => {
 
 const changeUserData = async (req, res) => {
     const { name, email, birthday, phone, city } = req.body;
+
+     console.log('req.user :>> ', req.user);
     try {
-        const { id } = req.user;
-        const renewUser = await User.findByIdAndUpdate(id, req.body,  { new: true });
-        // const renewUser = await User.findByIdAndUpdate(id, { name, email, birthday, phone, city });
+        const { _id } = req.user;
+        // const renewUser = await User.findByIdAndUpdate( req.body);
+        const renewUser = await User.findByIdAndUpdate({_id}, req.body, {new: true});
         return  res.status(201).json(renewUser);
     } catch (err) {
         console.log(err)
