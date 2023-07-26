@@ -3,9 +3,9 @@ const logger = require("morgan");
 const cors = require("cors");
 const fs = require("fs/promises");
 
-const noticesRouter = require("./routes/api/notices");
+const noticesRouter = require("./routes/api/noticesRoutes");
 const authRouter = require("./routes/api/authRoutes");
-const petsRouter = require("./routes/api/pets");
+const petsRouter = require("./routes/api/petsRoutes");
 const app = express();
 
 const swaggerUi = require('swagger-ui-express');

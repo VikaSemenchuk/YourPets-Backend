@@ -279,134 +279,6 @@
                 }
             }
         },
-        "/users/favorite/{id}": {
-            "patch": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Add notice to user's favorite by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "type": "string",
-                        "required": true,
-                        "description": "Notice's id"
-                    }
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "User updated successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#components/schemas/GetNoticesResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bed request",
-                        "content": {}
-                    },
-                    "401": {
-                        "description": "Not authorized",
-                        "content": {}
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {}
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Delete notice from favorite by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "type": "string",
-                        "description": "Notice's id",
-                        "required": true
-                    }
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Notice deleted from favorites successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#components/schemas/GetNoticesResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bed request",
-                        "content": {}
-                    },
-                    "401": {
-                        "description": "Not authorized",
-                        "content": {}
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {}
-                    }
-                }
-            }
-        },
-        "/users/favorite": {
-            "get": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Get user's favorite notices",
-                "parameters": [],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Request success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#components/schemas/GetNoticesResponse"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bed request",
-                        "content": {}
-                    },
-                    "401": {
-                        "description": "Not authorized",
-                        "content": {}
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {}
-                    }
-                }
-            }
-        },
         "/notices": {
             "get": {
                 "tags": [
@@ -534,65 +406,7 @@
                 }
             }
         },
-        "/notices/users/{id}": {
-            "delete": {
-                "tags": [
-                    "Notices"
-                ],
-                "summary": "Delete notice by id",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "type": "string",
-                        "description": "Notice's id",
-                        "required": true
-                    }
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No content",
-                        "content": {}
-                    },
-                    "400": {
-                        "description": "Bed request",
-                        "content": {}
-                    },
-                    "404": {
-                        "description": "Not found",
-                        "content": {}
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {}
-                    }
-                }
-            }
-        },
-        "/notices/search": {
-            "get": {
-                "tags": [
-                    "Notices"
-                ],
-                "summary": "Filter notice",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {}
-            }
-        },
-        "/notices/users": {
+        "/notices/user/added": {
             "get": {
                 "tags": [
                     "Notices"
@@ -644,6 +458,198 @@
                         "content": {}
                     }
                 }
+            }
+        },
+        "/notices/user/added/{id}": {
+            "delete": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Delete notice by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "description": "Notice's id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notice deleted from favorites successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/notices/user/favorite": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Get user's favorite notices",
+                "parameters": [],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Request success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/notices/user/favorite/{id}": {
+            "patch": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Add notice to user's favorite by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": true,
+                        "description": "Notice's id"
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User updated successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Delete notice from favorite by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "description": "Notice's id",
+                        "required": true
+                    }
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notice deleted from favorites successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/notices/search": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Filter notice",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {}
             }
         },
         "/pets": {

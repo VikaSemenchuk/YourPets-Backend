@@ -10,7 +10,7 @@ const removeNotice = async (req, res) => {
     if (!item) {
       return res.status(404).json({ "message": "Not found" })
     }
-    return res.status(204).json({ "message": "No content"});
+    return res.status(200).json({ "message": "notice deleted", NoticesList });
     } catch (err) {
         res.status(400).json({ message: 'Ooops...'})
     }
