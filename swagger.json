@@ -374,7 +374,7 @@
                 "tags": [
                     "Users"
                 ],
-                "summary": "Get all notices",
+                "summary": "Get user's favorite notices",
                 "parameters": [],
                 "security": [
                     {
