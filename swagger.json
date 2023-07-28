@@ -634,7 +634,7 @@
                 }
             }
         },
-        "/notices/search": {
+        "/notices/search/filter": {
             "get": {
                 "tags": [
                     "Notices"

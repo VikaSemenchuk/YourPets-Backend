@@ -10,7 +10,7 @@ const listNotices = async (req, res) => {
 console.log('{owner} :>> ',panginationString);
 
     try {
-        const { page = 1, limit = 8, favorite = false } = req.query;
+        const { page = 1, limit = 4, favorite = false } = req.query;
         const skip = (page - 1) * limit;
 
         console.log('panginationString :>> ', panginationString);

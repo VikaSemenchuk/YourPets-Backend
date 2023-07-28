@@ -6,7 +6,7 @@ const {filterNotices,  getNoticeById, removeNotice, addNotice, updateImgNotice, 
 router.get('/', getAllNotices)
 router.post('/', authenticate, addNotice)
 router.get('/:id', getNoticeById)
-router.get('/search', filterNotices)
+router.get('/search/filter', filterNotices)
 
 router.get('/user/added', authenticate, listNotices)
 router.delete('/user/added/:id', authenticate, removeNotice) 
