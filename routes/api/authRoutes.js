@@ -16,7 +16,7 @@ router.get('/current', authenticate, getCurrent);// changed post on get
 // router.delete('/favorite/:id', authenticate, removeFavorites); // це пункт 18???
 // router.get('/favorite', authenticate, getFavorites); //це пункт 17????
 
-router.patch('/update', authenticate, changeUserData); // added update before id?????? 
-router.patch('/avatar', authenticate, upload.single("avatar"), changeAvatarImg);// може тут також id треба
+// router.patch('/update', authenticate, changeUserData); // added update before id?????? 
+router.patch('/update/avatar', authenticate, upload.single("avatar"), changeAvatarImg);// може тут також id треба
 
 module.exports = router 

@@ -80,29 +80,6 @@
                 }
             }
         },
-        "/users/avatar": {
-            "patch": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Add user's avatar",
-                "parameters": [],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {}
-            }
-        },
         "/users/login": {
             "post": {
                 "tags": [
@@ -151,7 +128,7 @@
                 }
             }
         },
-        "/users/update": {
+        "/users/update/avatar": {
             "patch": {
                 "tags": [
                     "Users"
@@ -166,7 +143,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "$ref": "#components/schemas/UpdateUserRequest"
                             }
@@ -176,13 +153,7 @@
                 "responses": {
                     "201": {
                         "description": "User updated successful",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#components/schemas/UpdateUserInfoResponse"
-                                }
-                            }
-                        }
+                        "content": {}
                     },
                     "400": {
                         "description": "Bed request",
@@ -336,7 +307,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "$ref": "#components/schemas/AddNoticeRequest"
                             }
@@ -699,7 +670,7 @@
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "$ref": "#components/schemas/AddPetRequest"
                             }
@@ -762,29 +733,6 @@
                         "content": {}
                     }
                 }
-            }
-        },
-        "/pets/avatar/{id}": {
-            "patch": {
-                "tags": [
-                    "Pets"
-                ],
-                "summary": "Remove pet by id",
-                "parameters": [],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
-                    }
-                },
-                "responses": {}
             }
         }
     },
@@ -857,6 +805,11 @@
             "UpdateUserRequest": {
                 "type": "object",
                 "properties": {
+                    "avatarURL": {
+                        "type": "string",
+                        "description": "User's avatar",
+                        "format": "binary"
+                    },
                     "name": {
                         "type": "string",
                         "description": "User's name",
@@ -888,16 +841,22 @@
                 "type": "object",
                 "description": "New notice",
                 "required": [
+                    "fileURL",
                     "name",
                     "date",
                     "category",
                     "type",
                     "sex",
                     "location",
-                    "price",
-                    "owner"
+                    "price"
                 ],
                 "properties": {
+                    "fileURL": {
+                        "type": "string",
+                        "description": "Pet's photo",
+                        "example": "fmhdjrg7rgbghy7",
+                        "format":"binary"
+                    },
                     "category": {
                         "type": "string",
                         "description": "Category of notice",
@@ -937,16 +896,6 @@
                         "type": "string",
                         "description": "Comment to notice",
                         "example": "Comment for example"
-                    },
-                    "owner": {
-                        "type": "string",
-                        "description": "User's id",
-                        "example": "fmhdjrg7rgbghy7"
-                    },
-                    "fileURL": {
-                        "type": "string",
-                        "description": "Pet's photo",
-                        "example": "fmhdjrg7rgbghy7"
                     }
                 }
             },
@@ -954,11 +903,18 @@
                 "type": "object",
                 "description": "New pet",
                 "required": [
+                    "fileURL",
                     "name",
                     "date",
                     "type"
                 ],
                 "properties": {
+                    "fileURL": {
+                        "type": "string",
+                        "description": "Pet's photo",
+                        "example": "fmhdjrg7rgbghy7",
+                        "format":"binary"
+                    },
                     "name": {
                         "type": "string",
                         "description": "Name of pet",
@@ -967,7 +923,7 @@
                     "date": {
                         "type": "string",
                         "description": "Birthday date of pet",
-                        "format": "date-time"
+                        "example": "24.08.1991"
                     },
                     "type": {
                         "type": "string",
@@ -982,11 +938,6 @@
                     "owner": {
                         "type": "string",
                         "description": "User's id",
-                        "example": "fmhdjrg7rgbghy7"
-                    },
-                    "fileURL": {
-                        "type": "string",
-                        "description": "Pet's photo",
                         "example": "fmhdjrg7rgbghy7"
                     }
                 }
@@ -1306,6 +1257,7 @@
                         "category": {
                             "type": "string",
                             "description": "Category of notice",
+                            "enum": "sell, lost-found, for-free",
                             "example": "for-free"
                         },
                         "name": {
@@ -1325,6 +1277,7 @@
                         },
                         "sex": {
                             "type": "string",
+                            "enum": "male, female",
                             "description": "Sex of pet in notice",
                             "example": "female"
                         },

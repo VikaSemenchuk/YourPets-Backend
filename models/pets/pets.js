@@ -1,37 +1,36 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const petSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'Set name for pet'],
+      required: [true, "Set name for pet"],
     },
     date: {
-      type: Date,
-      required: [true, 'Birthday date of pet'],
+      type: String,
+      required: [true, "Birthday date of pet"],
     },
     type: {
       type: String,
-      required: [true, 'Set type for pet'], 
+      required: [true, "Set type for pet"],
     },
     comments: {
       type: String,
-      default:''
+      default: "",
     },
     owner: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
+      ref: "user",
     },
-    fileURL:
-      { type: String }
+    fileURL: { type: String },
   },
-    {
-      timestamps: true,
-      versionKey: false
+  {
+    timestamps: true,
+    versionKey: false,
   }
 );
 
-const Pet = mongoose.model('Pet', petSchema);
+const Pet = mongoose.model("Pet", petSchema);
 
 module.exports = Pet;

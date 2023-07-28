@@ -32,7 +32,10 @@ const listPets = async (req, res) => {
 const addPet = async (req, res) => {
   const { _id: owner } = req.user;
   try {
-    const item = await Pet.create({...req.body, owner});
+    if (!req.file) {
+      res.status(500).json({ message: 'Your file is not valid or added' })
+    }
+    const item = await Pet.create({...req.body, fileURL: req.file.path, owner});
     return res.status(201).json({ message: 'Pet is added', item });
   }
   catch (err) {

@@ -17,7 +17,7 @@ const storage = new CloudinaryStorage({
     params: async (req, file) => {
         return {
             folder: 'petsshop',
-            allowed_formats: ['jpg', 'jpeg', '.png'],
+            allowed_formats: ['jpg', 'jpeg', 'png'],
             public_id: file.originalname,
             transformation: [
                 { width: 500, height: 500 },
@@ -38,7 +38,7 @@ const changeAvatarImg = async (req, res, next) => {
 console.log('req.file :>> ', req.file);
 
         const { _id, avatarURL } = req.user
-        const userI = await User.findByIdAndUpdate(_id, { avatarURL: req.file.path });
+        const userI = await User.findByIdAndUpdate(_id, {...req.body, avatarURL: req.file.path }, {new:true});
         res.status(200).json(userI);
     }
     catch (err) {
