@@ -6,10 +6,11 @@ const fs = require("fs/promises");
 const noticesRouter = require("./routes/api/noticesRoutes");
 const authRouter = require("./routes/api/authRoutes");
 const petsRouter = require("./routes/api/petsRoutes");
+const friendsRouter = require("./routes/api/friendsRoutes");
 const app = express();
 
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
@@ -23,7 +24,9 @@ app.use("/api/users", authRouter);
 app.use("/api/notices", noticesRouter);
 app.use("/api/pets", petsRouter);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api/friends", friendsRouter);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "found" });

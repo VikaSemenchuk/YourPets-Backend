@@ -12,6 +12,7 @@ const { updateImgNotice } = require('./notices/updateImgNotice');
 const { changeAvatarImg, upload, storage } = require('./users/changeAvatarImg');
 const { addFavorites, removeFavorites, getFavorites} = require('./users/updateFavorites')
 const { listPets, addPet,addPetImg, removePet } = require('./pets/petsControllers')
+const { getAllFriends } = require('./friends/friends')
 
 
 
@@ -19,5 +20,5 @@ module.exports = {
     signup, login, logout,
     getCurrent, changeUserData,
     listNotices, getNoticeById, removeNotice, addNotice, updateImgNotice, changeAvatarImg, getAllNotices,
-    listPets, addPet, addPetImg, removePet, filterNotices, addFavorites, removeFavorites, getFavorites, upload, storage
+    listPets, addPet, addPetImg, removePet, filterNotices, addFavorites, removeFavorites, getFavorites, upload, storage, getAllFriends
 }
