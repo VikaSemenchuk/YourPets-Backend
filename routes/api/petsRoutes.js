@@ -5,7 +5,7 @@ const authenticate = require('../../middlewares/authMiddleware');
 
 router.get('/', authenticate, listPets)
 
-router.post('/', authenticate, upload.single("img"), addPet)
+router.post('/', authenticate, upload.single("file"), addPet)
 
 router.delete('/:id', authenticate, removePet)
 

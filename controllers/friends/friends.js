@@ -4,7 +4,9 @@ const Friend = require("../../models/friends/friends")
 
 const getAllFriends = async (req, res) => {
    try {
-    const getAllList = await Friend.find()
+    const { page = 1, limit = 2, favorite = false } = req.query;
+        const skip = (page - 1) * limit;
+    const getAllList = await Friend.find( {limit, skip})
     console.log('getAllFriends :>> ', getAllList);
 
     checkResult(getAllList)
