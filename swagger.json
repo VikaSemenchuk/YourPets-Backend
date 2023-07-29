@@ -939,7 +939,7 @@
                         "type": "string",
                         "description": "Pet's photo",
                         "example": "fmhdjrg7rgbghy7",
-                        "format":"binary"
+                        "format": "binary"
                     },
                     "category": {
                         "type": "string",
@@ -966,7 +966,7 @@
                         "type": "string",
                         "description": "Sex of pet in notice",
                         "example": "female",
-                        "enum":"male, female"
+                        "enum": "male, female"
                     },
                     "location": {
                         "type": "string",
@@ -999,7 +999,7 @@
                         "type": "string",
                         "description": "Pet's photo",
                         "example": "fmhdjrg7rgbghy7",
-                        "format":"binary"
+                        "format": "binary"
                     },
                     "name": {
                         "type": "string",
