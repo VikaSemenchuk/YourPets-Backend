@@ -944,7 +944,8 @@
                     "category": {
                         "type": "string",
                         "description": "Category of notice",
-                        "example": "for-free"
+                        "example": "for-free",
+                        "enum": "sell, lost-found, for-free"
                     },
                     "name": {
                         "type": "string",
@@ -964,7 +965,8 @@
                     "sex": {
                         "type": "string",
                         "description": "Sex of pet in notice",
-                        "example": "female"
+                        "example": "female",
+                        "enum":"male, female"
                     },
                     "location": {
                         "type": "string",

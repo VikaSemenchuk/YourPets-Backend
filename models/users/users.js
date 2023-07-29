@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema(
             unique: true,
         },
         birthday: {
-            type: Date,
+            type: String,
             default: ""
         },
         phone: {
