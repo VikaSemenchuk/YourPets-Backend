@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 
 const noticeSchema = mongoose.Schema(
   {
+    title: {
+      type: String,
+      required: [true, 'Set title for notice'],
+    },
     name: {
       type: String,
       required: [true, 'Set name for notice'],
