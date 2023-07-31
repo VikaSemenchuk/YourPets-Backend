@@ -3,7 +3,7 @@ const { New } = require("../../models/news");
 
 const getAllNews = async (req, res) => {
   try {
-    const { page = 1, limit = 8 } = req.query;
+    const { page = 1, limit = 9 } = req.query;
     const skip = (page - 1) * limit;
 
     const getAllList = await New.find({}, "-createdAT -updatedAT", {

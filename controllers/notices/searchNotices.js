@@ -4,7 +4,7 @@ const checkTitle = require("../../helpers/checkTitle");
 const searchNotices = async (req, res) => {
   const { title, category } = req.query;
   try {
-    const { page = 1, limit = 8 } = req.query;
+    const { page = 1, limit = 10 } = req.query;
     const skip = (page - 1) * limit;
 
     let paginationString = { category };
@@ -43,7 +43,12 @@ const searchNotices = async (req, res) => {
       noticesList = checkTitle(noticesList, title);
     }
 
-    return res.status(200).json(noticesList);
+
+    const totalList = await Notice.find(paginationString)
+
+    const total = totalList.length
+
+    return res.status(200).json({noticesList, total});
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });
