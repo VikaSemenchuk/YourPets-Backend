@@ -1,49 +1,58 @@
 const Notice = require("../../models/notices/notices");
 
+function checkTitle(list, title) {
+  const newList = [];
+
+  list.map((item) => {
+    const listTitle = item.title.split(" ");
+
+    for (const word of title.split(" ")) {
+      if (listTitle.includes(word)) newList.push(item);
+    }
+  });
+
+  return newList;
+}
+
 const searchNotices = async (req, res) => {
-  const { name, category } = req.query;
-  console.log(name, category);
+  const { title, category } = req.query;
   try {
     const { page = 1, limit = 4 } = req.query;
     const skip = (page - 1) * limit;
+
     let paginationString = { category };
-    // category
-    //   ? (paginationString = { category, name })
-    //   : (paginationString = { name });
+    let noticesList = [];
 
-
-    if (category) paginationString = {category}
-    const noticesList = await Notice.find(paginationString, "-createdAT -updatedAT", {
+    if (category && title === undefined) {
+      paginationString = { category };
+      noticesList = await Notice.find(
+        paginationString,
+        "-createdAT -updatedAT",
+        {
+          skip,
+          limit,
+        }
+      );
+    } else if (title && category === undefined) {
+      noticesList = await Notice.find({}, "-createdAT -updatedAT", {
         skip,
         limit,
       });
 
+      noticesList = checkTitle(noticesList, title);
+    } else if (category && title) {
+      paginationString = { category };
+      noticesList = await Notice.find(
+        paginationString,
+        "-createdAT -updatedAT",
+        {
+          skip,
+          limit,
+        }
+      );
 
-    // const noticesList = await Notice.find({}, "-createdAT -updatedAT", {
-    //     skip,
-    //     limit,
-    //   });
-    // console.log("noticesList :>> ", noticesList);
-
-    // console.log('name join :>> ', name.split(' '));
-    //   const filteredItems = noticesList.filter((notice) =>
-    //     notice.name.split(' ').includes(name)
-    //   );
-    // console.log(filteredItems);
-
-
-    // function checkStringInArrayOfObjects(arr, searchString, property) {
-    //     return arr.some(obj => obj[property].split(' ').join('_') && obj[property].split(' ').join('_').includes(searchString));
-    //   }
-    //   const searchString = name.split(' ').join('_');
-    //   const propertyToCheck = "name";
-    //   console.log(checkStringInArrayOfObjects(noticesList, searchString, propertyToCheck));
-
-
-
-    // console.log('noticesList[11].name :>> ', noticesList[11].name);
-    // console.log('name :>> ', name.split(' ').join('_'));
-
+      noticesList = checkTitle(noticesList, title);
+    }
     return res.status(200).json(noticesList);
   } catch (err) {
     console.log(err);
