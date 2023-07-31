@@ -4,7 +4,7 @@ const checkTitle = require("../../helpers/checkTitle");
 const searchNotices = async (req, res) => {
   const { title, category } = req.query;
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 8 } = req.query;
     const skip = (page - 1) * limit;
 
     let paginationString = { category };

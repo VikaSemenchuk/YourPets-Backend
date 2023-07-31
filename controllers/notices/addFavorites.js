@@ -1,4 +1,5 @@
 const Notice = require("../../models/notices/notices");
+const User = require("../../models/users/users");
 
 const addFavorites = async (req, res) => {
   const { id } = req.params;
