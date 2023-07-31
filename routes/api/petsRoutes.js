@@ -1,14 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const {listPets, addPet, addPetImg, removePet, upload} = require('../../controllers/index')
-const authenticate = require('../../middlewares/authMiddleware');
+const express = require("express");
+const router = express.Router();
 
-router.get('/', authenticate, listPets)
+const authenticate = require("../../middlewares/authMiddleware");
+const { listPets, addPet, removePet } = require("../../controllers/pets");
+const { upload } = require("../../services/cloudinary");
 
-router.post('/', authenticate, upload.single("file"), addPet)
+router.get("/", authenticate, listPets);
+router.post("/", authenticate, upload.single("file"), addPet);
+router.delete("/:id", authenticate, removePet);
 
-router.delete('/:id', authenticate, removePet)
-
-// router.patch('/avatar/:id', authenticate, upload.single("img"), addPetImg)
-
-module.exports = router
+module.exports = router;

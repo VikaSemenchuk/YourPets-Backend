@@ -1,14 +1,23 @@
-const fs = require("fs/promises");
-const Notice = require("../../models/notices/notices");
+const { Notice } = require("../../models/notices");
 
 const addNotice = async (req, res) => {
   const { _id: owner } = req.user;
-  // const { id } = req.params;
+
   try {
-    const item = await Notice.create({ ...req.body, owner });
-    return res.status(201).json({ message: "Notice is added", item });
+    if (!req.file) {
+      res.status(500);
+    }
+
+    const noticeUpdate = await Notice.create({
+      ...req.body,
+      fileURL: req.file.path,
+      owner,
+    });
+
+    res.status(201).json(noticeUpdate);
   } catch (err) {
-    res.status(405).json({ message: "Ooops...", err });
+    console.log(err);
+    res.status(500).json({ message: "Ooops... Something brakes in Avatar" });
   }
 };
 

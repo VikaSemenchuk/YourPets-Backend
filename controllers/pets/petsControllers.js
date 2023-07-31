@@ -1,6 +1,5 @@
-const fs = require("fs/promises");
 const Pet = require("../../models/pets/pets");
-const storage = require("../index");
+// const storage = require("../index");
 require("dotenv").config("./.env");
 
 const cloudinary = require("cloudinary").v2;
@@ -10,19 +9,19 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const multer = require("multer");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const upload = multer({ storage });
+// const multer = require("multer");
+// const { CloudinaryStorage } = require("multer-storage-cloudinary");
+// const upload = multer({ storage });
 
 const listPets = async (req, res) => {
   const { _id: owner } = req.user;
   try {
-    const { page = 1, limit = 20, favorite = false } = req.query;
+    const { page = 1, limit = 8} = req.query;
     const skip = (page - 1) * limit;
-    const panginationString = { owner };
-    // !favorite ? panginationString = {owner} : panginationString = { owner , favorite };
+    const paginationString = { owner };
+    // !favorite ? paginationString = {owner} : paginationString = { owner , favorite };
     const petsList = await Pet.find(
-      panginationString,
+      paginationString,
       "-createdAT -updatedAT",
       { skip, limit }
     );

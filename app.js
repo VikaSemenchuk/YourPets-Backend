@@ -1,7 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-const fs = require("fs/promises");
 
 const noticesRouter = require("./routes/api/noticesRoutes");
 const authRouter = require("./routes/api/authRoutes");

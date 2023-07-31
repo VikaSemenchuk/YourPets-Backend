@@ -1,11 +1,8 @@
 const express = require("express");
-const { getAllFriends } = require('../../controllers/index');
-
-// const ctrl = require("../../controllers/contacts");
-// const schemas = require('../../schemas/contacts')
-
 const router = express.Router();
+
+const { getAllFriends } = require("../../controllers/friends");
 
 router.get("/", getAllFriends);
 
-module.exports = router
+module.exports = router;

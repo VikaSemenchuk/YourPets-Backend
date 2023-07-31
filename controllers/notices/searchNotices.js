@@ -1,18 +1,5 @@
-const Notice = require("../../models/notices/notices");
-
-function checkTitle(list, title) {
-  const newList = [];
-
-  list.map((item) => {
-    const listTitle = item.title.split(" ");
-
-    for (const word of title.split(" ")) {
-      if (listTitle.includes(word)) newList.push(item);
-    }
-  });
-
-  return newList;
-}
+const { Notice } = require("../../models/notices");
+const checkTitle = require("../../helpers/checkTitle");
 
 const searchNotices = async (req, res) => {
   const { title, category } = req.query;
@@ -53,6 +40,7 @@ const searchNotices = async (req, res) => {
 
       noticesList = checkTitle(noticesList, title);
     }
+
     return res.status(200).json(noticesList);
   } catch (err) {
     console.log(err);
@@ -61,5 +49,5 @@ const searchNotices = async (req, res) => {
 };
 
 module.exports = {
-  searchNotices,
+  searchNotices
 };
