@@ -13,7 +13,7 @@ const removeFavorites = async (req, res) => {
         { $pull: { favorites: favNotice } },
         { new: true }
       );
-      return res.status(200).json(newUser.favorites);
+      return res.status(200).json(favNotice);
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: "Ooops... ListContacts" });
