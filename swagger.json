@@ -912,7 +912,7 @@
             "UpdateUserRequest": {
                 "type": "object",
                 "properties": {
-                    "avatarURL": {
+                    "avatar": {
                         "type": "string",
                         "description": "User's avatar",
                         "format": "binary"

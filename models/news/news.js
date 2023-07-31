@@ -1,17 +1,18 @@
-const fs = require("fs/promises");
-const path = require("path");
+const mongoose = require('mongoose');
+  const Schema = mongoose.Schema;
 
-const newsPath = path.resolve("models", "news", "allArticles.json");
+  const newsSchema = Schema({
+     title: String,
+    url: String,
+    text: String,
+    imageUrl: String,
+    date: String
+  },
+  {
+    timestamps: true,
+    versionKey: false
+})
 
-const listNews = async () => {
-    try {
-      const data = await fs.readFile(newsPath);
-    //   console.log('data :>> ', data);
-      return (news = JSON.parse(data));
-  
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  };
+const New = mongoose.model('New', newsSchema);
 
-  module.exports = {listNews}
+module.exports = New
