@@ -12,24 +12,24 @@ const searchNotices = async (req, res) => {
     //   : (paginationString = { name });
 
 
-    // if (category) paginationString = {category}
-    // const noticesList = await Notice.find(paginationString, "-createdAT -updatedAT", {
-    //     skip,
-    //     limit,
-    //   });
-
-
-    const noticesList = await Notice.find({}, "-createdAT -updatedAT", {
+    if (category) paginationString = {category}
+    const noticesList = await Notice.find(paginationString, "-createdAT -updatedAT", {
         skip,
         limit,
       });
+
+
+    // const noticesList = await Notice.find({}, "-createdAT -updatedAT", {
+    //     skip,
+    //     limit,
+    //   });
     // console.log("noticesList :>> ", noticesList);
 
-    console.log('name join :>> ', name.split(' '));
-      const filteredItems = noticesList.filter((notice) =>
-        notice.name.split(' ').includes(name)
-      );
-    console.log(filteredItems);
+    // console.log('name join :>> ', name.split(' '));
+    //   const filteredItems = noticesList.filter((notice) =>
+    //     notice.name.split(' ').includes(name)
+    //   );
+    // console.log(filteredItems);
 
 
     // function checkStringInArrayOfObjects(arr, searchString, property) {

@@ -26,7 +26,7 @@ const updateImgNotice = async (req, res) => {
     const noticeUpdate = await Notice.create({
       ...req.body,
       fileURL: req.file.path,
-      owner,
+      owner
     });
 
     console.log("noticeI :>> ", noticeUpdate);
