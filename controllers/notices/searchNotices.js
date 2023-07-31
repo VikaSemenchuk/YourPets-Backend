@@ -4,8 +4,8 @@ const checkTitle = require("../../helpers/checkTitle");
 const searchNotices = async (req, res) => {
   const { title, category } = req.query;
   try {
-    const { page = 1, limit = 4 } = req.query;
-    const skip = (page - 1) * limit;
+    // const { page = 1, limit = 4 } = req.query;
+    // const skip = (page - 1) * limit;
 
     let paginationString = { category };
     let noticesList = [];
@@ -14,28 +14,30 @@ const searchNotices = async (req, res) => {
       paginationString = { category };
       noticesList = await Notice.find(
         paginationString,
-        "-createdAT -updatedAT",
-        {
-          skip,
-          limit,
-        }
+        "-createdAT -updatedAT"//,
+        // {
+        //   skip,
+        //   limit,
+        // }
       );
     } else if (title && category === undefined) {
-      noticesList = await Notice.find({}, "-createdAT -updatedAT", {
-        skip,
-        limit,
-      });
+      noticesList = await Notice.find({}, "-createdAT -updatedAT"
+      // , {
+      //   skip,
+      //   limit,
+      // }
+      );
 
       noticesList = checkTitle(noticesList, title);
     } else if (category && title) {
       paginationString = { category };
       noticesList = await Notice.find(
         paginationString,
-        "-createdAT -updatedAT",
-        {
-          skip,
-          limit,
-        }
+        "-createdAT -updatedAT"//,
+        // {
+        //   skip,
+        //   limit,
+        // }
       );
 
       noticesList = checkTitle(noticesList, title);
