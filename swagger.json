@@ -613,22 +613,53 @@
                 }
             }
         },
-        "/notices/search/filter": {
+        "/notices/users/search": {
             "get": {
                 "tags": [
                     "Notices"
                 ],
-                "summary": "Filter notice",
-                "parameters": [],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {}
-                        }
+                "summary": "Search notice by category or search field",
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Notice's category",
+                        "required": false
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Notice's title",
+                        "required": false
                     }
-                },
-                "responses": {}
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Request success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
             }
         },
         "/pets": {
@@ -748,7 +779,7 @@
                 "tags": [
                     "Friends"
                 ],
-                "summary": "Get all notices",
+                "summary": "Get all friends's info",
                 "parameters": [
                     {
                         "name": "page",
@@ -762,13 +793,19 @@
                         "in": "query",
                         "required": false,
                         "type": "integer",
-                        "description": "Number of notices on one page"
+                        "description": "Number of friends on one page"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Request success",
-                        "content": {}
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetFriendsResponse"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bed request",
@@ -786,7 +823,7 @@
                 "tags": [
                     "News"
                 ],
-                "summary": "Get all notices",
+                "summary": "Get all news",
                 "parameters": [
                     {
                         "name": "page",
@@ -800,13 +837,19 @@
                         "in": "query",
                         "required": false,
                         "type": "integer",
-                        "description": "Number of notices on one page"
+                        "description": "Number of news on one page"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Request success",
-                        "content": {}
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNewsResponse"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bed request",
@@ -866,26 +909,6 @@
                     }
                 }
             },
-            "DeleteNoticeByIdRequest": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "Notice's id",
-                        "example": "jgnhdjugjudhbjvduguj"
-                    }
-                }
-            },
-            "LogoutRequest": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "User's id",
-                        "example": "jgnhdjugjudhbjvduguj"
-                    }
-                }
-            },
             "UpdateUserRequest": {
                 "type": "object",
                 "properties": {
@@ -921,6 +944,17 @@
                     }
                 }
             },
+            "LogoutRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "User's id",
+                        "example": "jgnhdjugjudhbjvduguj"
+                    }
+                }
+            },
+
             "AddNoticeRequest": {
                 "type": "object",
                 "description": "New notice",
@@ -985,6 +1019,17 @@
                     }
                 }
             },
+            "DeleteNoticeByIdRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Notice's id",
+                        "example": "jgnhdjugjudhbjvduguj"
+                    }
+                }
+            },
+            
             "AddPetRequest": {
                 "type": "object",
                 "description": "New pet",
@@ -1028,6 +1073,7 @@
                     }
                 }
             },
+
             "RegistrationResponse": {
                 "type": "object",
                 "properties": {
@@ -1328,6 +1374,7 @@
                     }
                 }
             },
+
             "GetNoticesResponse": {
                 "type": "array",
                 "description": "All notices",
@@ -1400,53 +1447,69 @@
                     }
                 }
             },
-            "GetPetResponse": {
-                "type": "array",
-                "description": "All pets",
-                "items": {
-                    "type": "object",
-                    "description": "Notice",
-                    "properties": {
-                        "_id": {
-                            "type": "string",
-                            "description": "Id of user's favorite notice",
-                            "example": "64hn9bdbdrekmv"
-                        },
-                        "name": {
-                            "type": "string",
-                            "description": "Name of pet",
-                            "example": "User"
-                        },
-                        "date": {
-                            "type": "string",
-                            "description": "Birthday date of pet",
-                            "format": "date-time"
-                        },
-                        "type": {
-                            "type": "string",
-                            "description": "Type of pet in notice",
-                            "example": "dog"
-                        },
-                        "comments": {
-                            "type": "string",
-                            "description": "Comment to notice",
-                            "example": "Comment for example"
-                        },
-                        "owner": {
-                            "type": "string",
-                            "description": "User's id",
-                            "example": "fmhdjrg7rgbghy7"
-                        },
-                        "createdAt": {
-                            "type": "string",
-                            "description": "Date of creating notice",
-                            "example": "date-time"
-                        },
-                        "updatedAt": {
-                            "type": "string",
-                            "description": "Date of updating notice",
-                            "example": "date-time"
-                        }
+            "GetNoticeByIdResponse": {
+                "type": "object",
+                "description": "Notice",
+                "properties": {
+                    "_id": {
+                        "type": "string",
+                        "description": "Id of user's favorite notice",
+                        "example": "64hn9bdbdrekmv"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Category of notice",
+                        "example": "for-free"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of pet",
+                        "example": "User"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Birthday date of pet",
+                        "format": "date-time"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of pet in notice",
+                        "example": "dog"
+                    },
+                    "sex": {
+                        "type": "string",
+                        "description": "Sex of pet in notice",
+                        "example": "female"
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "Location of pet in notice",
+                        "example": "City"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "description": "Price for pet in notice",
+                        "example": "12"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Comment to notice",
+                        "example": "Comment for example"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "description": "User's id",
+                        "example": "fmhdjrg7rgbghy7"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "Date of creating notice",
+                        "example": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "Date of updating notice",
+                        "example": "date-time"
                     }
                 }
             },
@@ -1527,19 +1590,21 @@
                     }
                 }
             },
-            "GetNoticeByIdResponse": {
+            "DeleteNoticeByIdResponse": {
                 "type": "object",
-                "description": "Notice",
+                "description": "Deleted notice",
                 "properties": {
-                    "_id": {
+                    "fileURL": {
                         "type": "string",
-                        "description": "Id of user's favorite notice",
-                        "example": "64hn9bdbdrekmv"
+                        "description": "Pet's photo",
+                        "example": "fmhdjrg7rgbghy7",
+                        "format": "binary"
                     },
                     "category": {
                         "type": "string",
                         "description": "Category of notice",
-                        "example": "for-free"
+                        "example": "for-free",
+                        "enum": "sell, lost-found, for-free"
                     },
                     "name": {
                         "type": "string",
@@ -1559,7 +1624,8 @@
                     "sex": {
                         "type": "string",
                         "description": "Sex of pet in notice",
-                        "example": "female"
+                        "example": "female",
+                        "enum": "male, female"
                     },
                     "location": {
                         "type": "string",
@@ -1575,21 +1641,57 @@
                         "type": "string",
                         "description": "Comment to notice",
                         "example": "Comment for example"
-                    },
-                    "owner": {
-                        "type": "string",
-                        "description": "User's id",
-                        "example": "fmhdjrg7rgbghy7"
-                    },
-                    "createdAt": {
-                        "type": "string",
-                        "description": "Date of creating notice",
-                        "example": "date-time"
-                    },
-                    "updatedAt": {
-                        "type": "string",
-                        "description": "Date of updating notice",
-                        "example": "date-time"
+                    }
+                }
+            },
+
+            "GetPetResponse": {
+                "type": "array",
+                "description": "All pets",
+                "items": {
+                    "type": "object",
+                    "description": "Notice",
+                    "properties": {
+                        "_id": {
+                            "type": "string",
+                            "description": "Id of user's favorite notice",
+                            "example": "64hn9bdbdrekmv"
+                        },
+                        "name": {
+                            "type": "string",
+                            "description": "Name of pet",
+                            "example": "User"
+                        },
+                        "date": {
+                            "type": "string",
+                            "description": "Birthday date of pet",
+                            "format": "date-time"
+                        },
+                        "type": {
+                            "type": "string",
+                            "description": "Type of pet in notice",
+                            "example": "dog"
+                        },
+                        "comments": {
+                            "type": "string",
+                            "description": "Comment to notice",
+                            "example": "Comment for example"
+                        },
+                        "owner": {
+                            "type": "string",
+                            "description": "User's id",
+                            "example": "fmhdjrg7rgbghy7"
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "description": "Date of creating notice",
+                            "example": "date-time"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "description": "Date of updating notice",
+                            "example": "date-time"
+                        }
                     }
                 }
             },
@@ -1649,7 +1751,161 @@
                         }
                     }
                 }
+            },
+            "DeletePetByIdResponse": {
+                "type": "object",
+                "description": "Deleted pet",
+                "properties": {
+                    "fileURL": {
+                        "type": "string",
+                        "description": "Pet's photo",
+                        "example": "fmhdjrg7rgbghy7",
+                        "format": "binary"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Name of pet",
+                        "example": "User"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Birthday date of pet",
+                        "example": "24.08.1991"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of pet in pet",
+                        "example": "dog"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Comment to user's pet",
+                        "example": "Comment for example"
+                    },
+                    "owner": {
+                        "type": "string",
+                        "description": "User's id",
+                        "example": "fmhdjrg7rgbghy7"
+                    }
+                }
+            },
+
+            "GetFriendsResponse": {
+                "type": "array",
+                "description": "All friends",
+                "items": {
+                    "type": "object",
+                    "description": "Friends",
+                    "properties": {
+                        "_id": {
+                            "type": "string",
+                            "description": "Id of friend",
+                            "example": "64hn9bdbdrekmv"
+                        },
+                        "title": {
+                            "type": "string",
+                            "description": "Name of friend",
+                            "example": "User's friend"
+                        },
+                        "url": {
+                            "type": "string",
+                            "description": "Web-site of friend",
+                            "example": "https://lkplev4rf.com/"
+                        },
+                        "addressUrl": {
+                            "type": "string",
+                            "description": "Friend's point on the map",
+                            "example": "https://goo.gl/maps/4xMfxtahHPfXeAYU8"
+                        },
+                        "imageUrl": {
+                            "type": "string",
+                            "description": "Friend's logo",
+                            "example": "https://storage.googleapis.com/kidslikev2_bucket/pets-support/images/sponsors/frame_289.png"
+                        },
+                        "address": {
+                            "type": "string",
+                            "description": "Friend's address",
+                            "example": "index, City, address"
+                        },
+                        "workDays": {
+                            "type": "array",
+                            "description": "Friend's work time",
+                            "example": "Mo: 8:00 - 17:00"
+                        },
+                        "phone": {
+                            "type": "string",
+                            "description": "Friend's contact phone",
+                            "example": "+380000000000"
+                        },
+                        "email": {
+                            "type": "string",
+                            "description": "User's id",
+                            "format": "email"
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "description": "Date of creating notice",
+                            "example": "date-time"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "description": "Date of updating notice",
+                            "example": "date-time"
+                        }
+                    }
+                }
+            },
+            "GetNewsResponse": {
+                "type": "array",
+                "description": "All news",
+                "items": {
+                    "type": "object",
+                    "description": "News",
+                    "properties": {
+                        "_id": {
+                            "type": "string",
+                            "description": "Id of new",
+                            "example": "64hn9bdbdrekmv"
+                        },
+                        "title": {
+                            "type": "string",
+                            "description": "Title of new",
+                            "example": "User's friend"
+                        },
+                        "url": {
+                            "type": "string",
+                            "description": "Web-page of new",
+                            "example": "https://www.nytimes.com/2023/04/11/magazines/dogsitting-rich-new-york.html"
+                        },
+                        "text": {
+                            "type": "string",
+                            "description": "text of new",
+                            "example": "Here is the text of new"
+                        },
+                        "imageUrl": {
+                            "type": "string",
+                            "description": "New's photo",
+                            "example": "https://www.nytimes.com/images/2023/04/16/magazines/16mag-LOR/16mag-LOR-blog480.jpg"
+                        },
+                        "date": {
+                            "type": "string",
+                            "description": "News creation date",
+                            "example": "index, City, address"
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "description": "Date of creating notice",
+                            "example": "date-time"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "description": "Date of updating notice",
+                            "example": "date-time"
+                        }
+                    }
+                }
             }
+            
         },
         "securitySchemes": {
             "Bearer": {

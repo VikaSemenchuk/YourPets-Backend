@@ -5,7 +5,8 @@ const getAllNotices = async (req, res) => {
     try {
         const { page = 1, limit = 4 } = req.query;
         const skip = (page - 1) * limit;
-        const listAllNotices = await Notice.find({}, "-createdAT -updatedAT", {skip, limit});
+        const listAllNotices = await Notice.find({}, "-createdAT -updatedAT", {skip, limit}).sort({ createdAt: -1 });
+
         return res.status(200).json(listAllNotices);   
     } catch (err) {
         console.log(err)
