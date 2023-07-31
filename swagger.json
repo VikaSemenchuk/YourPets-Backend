@@ -861,6 +861,35 @@
                     }
                 }
             }
+        },
+        "/news/search": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Search news",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Request success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNewsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
         }
     },
     "components": {
