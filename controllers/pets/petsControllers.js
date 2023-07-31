@@ -74,11 +74,11 @@ const removePet = async (req, res) => {
     const { id } = req.params;
     const item = await Pet.findByIdAndRemove(id, owner);
     const PetsList = await Pet.find({owner});
-    console.log("PetsList :>> ", PetsList);
+    console.log("item :>> ", item);
     if (!item) {
       return res.status(404).json({ message: "Not found" });
     }
-    return res.status(200).json({ message: "pet deleted", PetsList });
+    return res.status(200).json({ message: "pet deleted", item });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: "Ooops..." });

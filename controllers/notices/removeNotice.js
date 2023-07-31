@@ -11,14 +11,15 @@ const removeNotice = async (req, res) => {
     }
     console.log(match.owner.id.toString() === owner.id.toString())
     if (match.owner.id.toString() !== owner.id.toString()) {
-      return res.status(404).json({ "message": "You havn't enough rights" })
+      return res.status(404).json({ "message": "You haven't enough rights" })
     }
     const item = await Notice.findByIdAndRemove(id);
+    console.log('item :>> ', item);
     const NoticesList = await Notice.find({owner});
     if (!item) {
       return res.status(404).json({ "message": "Not found" })
     }
-    return res.status(200).json({ "message": "notice deleted", NoticesList });
+    return res.status(200).json({ "message": "notice deleted", item });
     } catch (err) {
         res.status(400).json({ message: 'Ooops...'})
     }
