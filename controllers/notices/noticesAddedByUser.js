@@ -7,7 +7,7 @@ const noticesAddedByUser = async (req, res) => {
   console.log("{owner} :>> ", paginationString);
 
   try {
-    const { page = 1, limit = 4 } = req.query;
+    const { page = 1, limit = 8 } = req.query;
     const skip = (page - 1) * limit;
 
     console.log("paginationString :>> ", paginationString);
