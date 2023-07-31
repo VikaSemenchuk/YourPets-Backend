@@ -34,8 +34,8 @@ const noticeSchema = mongoose.Schema(
       required: [true, 'Set location for notice'],
     },
     price: {
-      type: Number,
-      required: [true, 'Set price for notice'],
+      type: Number
+      
     },
     comments: {
       type: String,
