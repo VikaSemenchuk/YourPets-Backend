@@ -4,6 +4,9 @@ const checkTitle = require("../../helpers/checkTitle");
 const newsSearch = async (req, res) => {
   try {
     const {title} = req.query
+
+    if(!title) return res.status(400).json({message: "Bed request"});
+
     let newsList = []
 
      newsList = await New.find({}, "-createdAT -updatedAT").sort({date: -1});
