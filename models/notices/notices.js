@@ -34,8 +34,10 @@ const noticeSchema = mongoose.Schema(
       required: [true, 'Set location for notice'],
     },
     price: {
-      type: Number
-      
+      type: Number,
+      required: function() {
+       return this.category === 'sell'
+      }
     },
     comments: {
       type: String,
