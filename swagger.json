@@ -868,7 +868,15 @@
                     "News"
                 ],
                 "summary": "Search news",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "type": "string",
+                        "description": "New's title",
+                        "required": false
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Request success",
