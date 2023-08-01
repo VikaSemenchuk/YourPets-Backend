@@ -4,7 +4,7 @@ const checkTitle2 = (list, title, skip, limit) => {
   const endIndex = skip + limit;
   const noticesSlice = notices.slice(skip, endIndex);
 
-
+  
   const result = {
     total,
     noticesSlice,
