@@ -1,15 +1,3 @@
-const checkTitle = (list, title) => {
-  const newList = [];
-
-  list.map((item) => {
-    const listTitle = item.title.split(" ");
-
-    for (const word of title.split(" ")) {
-      if (listTitle.includes(word)) newList.push(item);
-    }
-  });
-
-  return newList;
-}
+const checkTitle = (list, title) => list.filter(item => item.title.includes(title))
 
 module.exports = checkTitle;
