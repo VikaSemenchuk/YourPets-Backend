@@ -1,21 +1,25 @@
 const { Notice } = require("../../models/notices");
+const {filterNoticesByAge }= require('../../helpers/index')
 
 const filterNotices = async (req, res) => {
-  const { sex, age } = req.query;
-  console.log(sex, age);
+  const { sex, date } = req.query;
   try {
-    const { page = 1, limit = 4 } = req.query;
+    const { page = 1, limit = 40 } = req.query;
     const skip = (page - 1) * limit;
-    let paginationString = { sex };
-
-    age ? (paginationString = { age, sex }) : (paginationString = { sex });
+    let paginationString = {};
+ 
+    sex ? (paginationString = { sex }) : ( paginationString = {});
+    
     const noticesList = await Notice.find(
       paginationString,
       "-createdAT -updatedAT",
       { skip, limit }
     );
+    
+    const filteredNoticesList = filterNoticesByAge (noticesList, date)
+    // console.log(filteredNoticesList, 'jjjj')
 
-    return res.status(200).json(noticesList);
+    return res.status(200).json(filteredNoticesList);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });
