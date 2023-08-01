@@ -10,18 +10,18 @@ const noticesAddedByUser = async (req, res) => {
     const { page = 1, limit = 8 } = req.query;
     const skip = (page - 1) * limit;
 
-    console.log("paginationString :>> ", paginationString);
-
-    // !favorite ? paginationString = {owner} : paginationString = { owner , favorite };
-    const noticesList = await Notice.find(
+   const noticesList = await Notice.find(
       paginationString,
       "-createdAT -updatedAT",
       { skip, limit }
     );
-    return res.status(200).json(noticesList);
+
+    const total = await Notice.countDocuments(paginationString)
+
+    return res.status(200).json({noticesList, total});
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Ooops... ListContacts" });
+    res.status(500).json({ message: `Ooops... ${err.message}` });
   }
 };
 
