@@ -11,7 +11,7 @@ const {
   updateUsersInfo,
 } = require("../../controllers/user");
 
-router.post("/register", signup);
+router.post("/register", signup, login);
 router.post("/login", login);
 router.post("/logout", authenticate, logout);
 
