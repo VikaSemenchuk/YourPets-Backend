@@ -1,5 +1,5 @@
 const { New } = require("../../models/news");
-const checkTitle = require("../../helpers/checkTitle");
+const {checkTitle} = require("../../helpers/checkTitle");
 
 const newsSearch = async (req, res) => {
   try {

@@ -1,5 +1,5 @@
 const { Notice } = require("../../models/notices");
-const checkTitle = require("../../helpers/checkTitle");
+const { checkTitle, checkTitle2 } = require("../../helpers/checkTitle");
 
 const searchNotices = async (req, res) => {
   const { title, category } = req.query;
@@ -9,6 +9,7 @@ const searchNotices = async (req, res) => {
 
     let paginationString = { category };
     let noticesList = [];
+    let total = 0;
 
     if (category && title === undefined) {
       paginationString = { category };
@@ -20,35 +21,36 @@ const searchNotices = async (req, res) => {
           limit,
         }
       );
+
+      total = await Notice.countDocuments(paginationString);
     } else if (title && category === undefined) {
-      noticesList = await Notice.find({}, "-createdAT -updatedAT"
-      , {
+      let allNotices = [];
+
+      allNotices = await Notice.find({});
+
+      noticesList = await Notice.find({}, "-createdAT -updatedAT", {
         skip,
         limit,
-      }
-      );
+      });
 
-      noticesList = checkTitle(noticesList, title);
+      total = checkTitle2(allNotices, title, skip, limit).total;
+
+      noticesList = checkTitle2(allNotices, title, skip, limit).noticesSlice;
+     
+
     } else if (category && title) {
       paginationString = { category };
+
       noticesList = await Notice.find(
         paginationString,
-        "-createdAT -updatedAT",
-        {
-          skip,
-          limit,
-        }
+        "-createdAT -updatedAT"
       );
 
-      noticesList = checkTitle(noticesList, title);
+      noticesList = checkTitle2(noticesList, title, skip, limit).noticesSlice;
+      total = checkTitle2(noticesList, title, skip, limit).total;
     }
 
-
-    const totalList = await Notice.find(paginationString)
-
-    const total = totalList.length
-
-    return res.status(200).json({noticesList, total});
+    return res.status(200).json({ noticesList, total });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });
@@ -56,5 +58,5 @@ const searchNotices = async (req, res) => {
 };
 
 module.exports = {
-  searchNotices
+  searchNotices,
 };
