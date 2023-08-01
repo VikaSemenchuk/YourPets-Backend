@@ -12,7 +12,10 @@ const getAllNews = async (req, res) => {
     }).sort({ date: -1 });
 
     checkResult(getAllList);
-    return res.status(200).json(getAllList);
+
+    const total = await New.countDocuments({})
+
+    return res.status(200).json({getAllList, total});
   } catch (error) {
     res.status(500).json(error.message);
   }
