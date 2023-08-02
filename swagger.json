@@ -991,7 +991,6 @@
                     }
                 }
             },
-
             "AddNoticeRequest": {
                 "type": "object",
                 "description": "New notice",
@@ -1016,7 +1015,11 @@
                         "type": "string",
                         "description": "Category of notice",
                         "example": "for-free",
-                        "enum": "sell, lost-found, for-free"
+                        "enum": [
+                            "sell",
+                            "lost-found",
+                            "for-free"
+                        ]
                     },
                     "name": {
                         "type": "string",
@@ -1037,7 +1040,10 @@
                         "type": "string",
                         "description": "Sex of pet in notice",
                         "example": "female",
-                        "enum": "male, female"
+                        "enum": [
+                            "male",
+                            "female"
+                        ]
                     },
                     "location": {
                         "type": "string",
@@ -1066,7 +1072,6 @@
                     }
                 }
             },
-            
             "AddPetRequest": {
                 "type": "object",
                 "description": "New pet",
@@ -1110,7 +1115,6 @@
                     }
                 }
             },
-
             "RegistrationResponse": {
                 "type": "object",
                 "properties": {
@@ -1411,7 +1415,6 @@
                     }
                 }
             },
-
             "GetNoticesResponse": {
                 "type": "array",
                 "description": "All notices",
@@ -1681,7 +1684,6 @@
                     }
                 }
             },
-
             "GetPetResponse": {
                 "type": "array",
                 "description": "All pets",
@@ -1826,7 +1828,6 @@
                     }
                 }
             },
-
             "GetFriendsResponse": {
                 "type": "array",
                 "description": "All friends",
@@ -1942,7 +1943,6 @@
                     }
                 }
             }
-            
         },
         "securitySchemes": {
             "Bearer": {

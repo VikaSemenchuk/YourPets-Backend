@@ -16,8 +16,8 @@ const getAllNotices = async (req, res) => {
       }
     ).sort({ createdAt: -1 });
 
-    const totalList = await Notice.find({});
-    const total = totalList.length;
+    // const totalList = await Notice.find({});
+    const total = await Notice.countDocuments({});
 
     return res.status(200).json({listAllNotices, total});
   } catch (err) {

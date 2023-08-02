@@ -34,7 +34,6 @@ const searchNotices = async (req, res) => {
       });
 
       total = checkTitle2(allNotices, title, skip, limit).total;
-
       noticesList = checkTitle2(allNotices, title, skip, limit).noticesSlice;
      
 
