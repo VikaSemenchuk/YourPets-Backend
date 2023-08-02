@@ -8,7 +8,7 @@ const getAllNotices = async (req, res) => {
     const { page = 1, limit = 8 } = req.query;
     const skip = (page - 1) * limit;
 
-    const listAllNotices = await Notice.find(
+    const noticesList = await Notice.find(
       {},
       "-createdAT -updatedAT", {
       limit,
@@ -19,7 +19,7 @@ const getAllNotices = async (req, res) => {
     // const totalList = await Notice.find({});
     const total = await Notice.countDocuments({});
 
-    return res.status(200).json({listAllNotices, total});
+    return res.status(200).json({noticesList, total});
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

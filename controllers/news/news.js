@@ -6,16 +6,16 @@ const getAllNews = async (req, res) => {
     const { page = 1, limit = 9 } = req.query;
     const skip = (page - 1) * limit;
 
-    const getAllList = await New.find({}, "-createdAT -updatedAT", {
+    const newsList = await New.find({}, "-createdAT -updatedAT", {
       limit,
       skip,
     }).sort({ date: -1 });
 
-    checkResult(getAllList);
+    checkResult(newsList);
 
     const total = await New.countDocuments({})
 
-    return res.status(200).json({getAllList, total});
+    return res.status(200).json({newsList, total});
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -24,3 +24,5 @@ const getAllNews = async (req, res) => {
 module.exports = {
   getAllNews,
 };
+
+

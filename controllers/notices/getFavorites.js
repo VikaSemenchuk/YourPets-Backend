@@ -11,9 +11,9 @@ const getFavorites = async (req, res) => {
     const usersFavNotices = newUser.favorites;
 
     const total = usersFavNotices.length;
-    const favNoticesPag = usersFavNotices.slice(skip, endIndex);
+    const noticesList = usersFavNotices.slice(skip, endIndex);
 
-    return res.status(200).json({ favNoticesPag, total });
+    return res.status(200).json({ noticesList, total });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });
