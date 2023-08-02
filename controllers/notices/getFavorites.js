@@ -8,12 +8,12 @@ const getFavorites = async (req, res) => {
     const endIndex = skip + limit;
 
     const newUser = await User.findById(_id);
-    const usersFavNotices = newUser.favorites;
+    const allFavNotices = newUser.favorites;
 
-    const total = usersFavNotices.length;
-    const noticesList = usersFavNotices.slice(skip, endIndex);
+    const total = allFavNotices.length;
+    const noticesList = allFavNotices.slice(skip, endIndex);
 
-    return res.status(200).json({ noticesList, total });
+    return res.status(200).json({ allFavNotices, noticesList, total });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });

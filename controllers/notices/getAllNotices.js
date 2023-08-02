@@ -2,9 +2,6 @@ const { Notice } = require("../../models/notices");
 
 const getAllNotices = async (req, res) => {
   try {
-    // const { page = 1 } = req.query;
-    // const skip = (page - 1) * limit;
-
     const { page = 1, limit = 8 } = req.query;
     const skip = (page - 1) * limit;
 

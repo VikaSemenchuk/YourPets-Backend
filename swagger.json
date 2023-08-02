@@ -159,12 +159,12 @@
                     }
                 },
                 "responses": {
-                    "201": {
+                    "200": {
                         "description": "User updated successful",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/GetUserInfoResponse"
+                                    "$ref": "#components/schemas/UpdateUserInfoResponse"
                                 }
                             }
                         }
@@ -411,13 +411,6 @@
                         "type": "integer",
                         "description": "Number of notices on one page",
                         "required": false
-                    },
-                    {
-                        "name": "favorite",
-                        "in": "query",
-                        "type": "boolean",
-                        "description": "Specifies whether the notice is favorite or not",
-                        "required": false
                     }
                 ],
                 "security": [
@@ -430,7 +423,9 @@
                         "description": "Request success",
                         "content": {
                             "application/json": {
-                                "schema": {}
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                }
                             }
                         }
                     },
@@ -1249,6 +1244,16 @@
                                             "description": "Id of user's favorite notice",
                                             "example": "64hn9bdbdrekmv"
                                         },
+                                        "fileURL": {
+                                            "type": "string",
+                                            "description": "Route to notice's image",
+                                            "example": "https://res.cloudinary.com/dxmtevsut/image/upload/v1690511748/petsshop/Jei.png.png"
+                                        },
+                                        "title": {
+                                            "type": "string",
+                                            "description": "Name of pet",
+                                            "example": "User"
+                                        },
                                         "category": {
                                             "type": "string",
                                             "description": "Category of notice",
@@ -1381,6 +1386,16 @@
                                     "description": "Id of user's favorite notice",
                                     "example": "64hn9bdbdrekmv"
                                 },
+                                "fileURL": {
+                                    "type": "string",
+                                    "description": "Route to notice's image",
+                                    "example": "https://res.cloudinary.com/dxmtevsut/image/upload/v1690511748/petsshop/Jei.png.png"
+                                },
+                                "title": {
+                                    "type": "string",
+                                    "description": "Name of pet",
+                                    "example": "User"
+                                },
                                 "category": {
                                     "type": "string",
                                     "description": "Category of notice",
@@ -1451,6 +1466,7 @@
                     }
                 }
             },
+
             "GetNoticesResponse": {
                 "type": "object",
                 "description": "Object with array of notices and total number of notices",
@@ -1461,70 +1477,9 @@
                         "items": {
                             "type": "object",
                             "description": "Notice",
-                            "properties": {
-                                "_id": {
-                                    "type": "string",
-                                    "description": "Id of user's favorite notice",
-                                    "example": "64hn9bdbdrekmv"
-                                },
-                                "category": {
-                                    "type": "string",
-                                    "description": "Category of notice",
-                                    "enum": "sell, lost-found, for-free",
-                                    "example": "for-free"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "Name of pet",
-                                    "example": "User"
-                                },
-                                "date": {
-                                    "type": "string",
-                                    "description": "Birthday date of pet",
-                                    "format": "date-time"
-                                },
-                                "type": {
-                                    "type": "string",
-                                    "description": "Type of pet in notice",
-                                    "example": "dog"
-                                },
-                                "sex": {
-                                    "type": "string",
-                                    "enum": "male, female",
-                                    "description": "Sex of pet in notice",
-                                    "example": "female"
-                                },
-                                "location": {
-                                    "type": "string",
-                                    "description": "Location of pet in notice",
-                                    "example": "City"
-                                },
-                                "price": {
-                                    "type": "integer",
-                                    "description": "Price for pet in notice",
-                                    "example": "12"
-                                },
-                                "comments": {
-                                    "type": "string",
-                                    "description": "Comment to notice",
-                                    "example": "Comment for example"
-                                },
-                                "owner": {
-                                    "type": "string",
-                                    "description": "User's id",
-                                    "example": "fmhdjrg7rgbghy7"
-                                },
-                                "createdAt": {
-                                    "type": "string",
-                                    "description": "Date of creating notice",
-                                    "example": "date-time"
-                                },
-                                "updatedAt": {
-                                    "type": "string",
-                                    "description": "Date of updating notice",
-                                    "example": "date-time"
-                                }
-                            }
+                            "$ref": "#components/schemas/GetNoticeByIdResponse"
+                                
+                            
                         }
                     },
                     "total": {
@@ -1542,6 +1497,17 @@
                         "type": "string",
                         "description": "Id of user's favorite notice",
                         "example": "64hn9bdbdrekmv"
+                    },
+                    "file": {
+                        "type": "string",
+                        "description": "Pet's photo",
+                        "example": "fmhdjrg7rgbghy7",
+                        "format": "binary"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Name of pet",
+                        "example": "User"
                     },
                     "category": {
                         "type": "string",
