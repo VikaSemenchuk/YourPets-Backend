@@ -20,7 +20,7 @@ const searchNotices = async (req, res) => {
           skip,
           limit,
         }
-      );
+      ).sort({createdAt: -1});
 
       total = await Notice.countDocuments(paginationString);
     } else if (title && category === undefined) {

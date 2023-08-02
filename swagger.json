@@ -495,7 +495,22 @@
                     "Notices"
                 ],
                 "summary": "Get user's favorite notices",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "Number of page"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "Number of notices on one page"
+                    }
+                ],
                 "security": [
                     {
                         "Bearer": []
@@ -637,7 +652,22 @@
                         "type": "string",
                         "description": "Notice's title",
                         "required": false
-                    }
+                    },
+                    {
+                            "name": "page",
+                            "in": "query",
+                            "required": false,
+                            "type": "integer",
+                            "description": "Number of page"
+                        },
+                        {
+                            "name": "limit",
+                            "in": "query",
+                            "required": false,
+                            "type": "integer",
+                            "description": "Number of notices on one page"
+                        }
+                    
                 ],
                 "requestBody": {},
                 "responses": {
@@ -672,7 +702,22 @@
                     "Pets"
                 ],
                 "summary": "Get list of user's pets",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "Number of page"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "Number of notices on one page"
+                    }
+                ],
                 "security": [
                     {
                         "Bearer": []
