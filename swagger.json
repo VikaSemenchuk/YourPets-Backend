@@ -68,7 +68,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/RegistrationResponse"
+                                    "$ref": "#components/schemas/LoginResponse"
                                 }
                             }
                         }
@@ -258,6 +258,10 @@
                 }
             }
         },
+
+
+
+        
         "/notices": {
             "get": {
                 "tags": [
@@ -991,11 +995,14 @@
                     }
                 }
             },
+
+
             "AddNoticeRequest": {
                 "type": "object",
                 "description": "New notice",
                 "required": [
-                    "fileURL",
+                    "file",
+                    "title",
                     "name",
                     "date",
                     "category",
@@ -1005,7 +1012,7 @@
                     "price"
                 ],
                 "properties": {
-                    "fileURL": {
+                    "file": {
                         "type": "string",
                         "description": "Pet's photo",
                         "example": "fmhdjrg7rgbghy7",
@@ -1020,6 +1027,11 @@
                             "lost-found",
                             "for-free"
                         ]
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "Name of pet",
+                        "example": "User"
                     },
                     "name": {
                         "type": "string",
@@ -1076,13 +1088,13 @@
                 "type": "object",
                 "description": "New pet",
                 "required": [
-                    "fileURL",
+                    "file",
                     "name",
                     "date",
                     "type"
                 ],
                 "properties": {
-                    "fileURL": {
+                    "file": {
                         "type": "string",
                         "description": "Pet's photo",
                         "example": "fmhdjrg7rgbghy7",
@@ -1107,29 +1119,14 @@
                         "type": "string",
                         "description": "Comment to user's pet",
                         "example": "Comment for example"
-                    },
-                    "owner": {
-                        "type": "string",
-                        "description": "User's id",
-                        "example": "fmhdjrg7rgbghy7"
                     }
                 }
             },
-            "RegistrationResponse": {
-                "type": "object",
-                "properties": {
-                    "user": {
-                        "type": "object",
-                        "properties": {
-                            "email": {
-                                "type": "string",
-                                "description": "User's email",
-                                "format": "email"
-                            }
-                        }
-                    }
-                }
-            },
+
+
+
+
+            
             "LoginResponse": {
                 "type": "object",
                 "properties": {
