@@ -15,9 +15,8 @@ const filterNotices = async (req, res) => {
       "-createdAT -updatedAT",
       { skip, limit }
     );
-    
-    const filteredNoticesList = filterNoticesByAge (noticesList, date)
-    // console.log(filteredNoticesList, 'jjjj')
+    const filteredNoticesList = filterNoticesByAge(noticesList, date)
+    // console.log(date, noticesList)
 
     return res.status(200).json(filteredNoticesList);
   } catch (err) {
