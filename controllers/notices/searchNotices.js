@@ -1,9 +1,13 @@
 const { Notice } = require("../../models/notices");
 const { checkTitle, checkTitle2 } = require("../../helpers/checkTitle");
+const User = require("../../models/users/users");
 
 const searchNotices = async (req, res) => {
+  // console.log('req.user :>> ', req.user);
   const { title, category } = req.query;
   try {
+    // const user = await User.
+
     const { page = 1, limit = 8 } = req.query;
     const skip = (page - 1) * limit;
 
@@ -37,7 +41,7 @@ const searchNotices = async (req, res) => {
       noticesList = checkTitle2(allNotices, title, skip, limit).noticesSlice;
      
 
-    } else if (category && title) {
+    } else if (category && title === undefined) {
       paginationString = { category };
 
       noticesList = await Notice.find(

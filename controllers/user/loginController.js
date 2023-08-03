@@ -31,7 +31,7 @@ const login = async (req, res) => {
       .status(200)
       .json({
         token,
-        user: { email: userI.email, subscription: userI.subscription },
+        user: { email: userI.email},
       });
   } catch (err) {
     return res.status(500).json({ message: `Ooops... ${err.message}` });

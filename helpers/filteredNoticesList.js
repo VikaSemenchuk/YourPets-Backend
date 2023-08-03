@@ -1,20 +1,57 @@
 const filterNoticesByAge = (noticesList, date) => {
-    let newList
-    switch (date) {
-        case '1':
-            newList = noticesList.filter(item => (-(new Date(item.date).getFullYear() - new Date().getFullYear()) < 1));
-            break
-        case '2':
-            newList = noticesList.filter(item => (-(new Date(item.date).getFullYear() - new Date().getFullYear()) > 1));
-            break
-        case '3':
-            newList = noticesList.filter(item => (-(new Date(item.date).getFullYear() - new Date().getFullYear()) > 1 * 2));
-            break
-        case '4':
-            newList = noticesList.filter(item => (-(new Date(item.date).getFullYear() - new Date().getFullYear()) < 1 || -(new Date(item.date).getFullYear() - new Date().getFullYear()) > 2));
-            break
-        default: newList = noticesList;
-    }
-        return newList
-}
+  let newList;
+  
+  const getFullYears = (date) => {
+    const rightDate = date.split("-").reverse().join("-");
+    const targetDate = new Date(rightDate);
+    const currentDate = new Date();
+    const dif = currentDate - targetDate;
+    const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
+
+    return Math.floor(dif / millisecondsInYear);
+  };
+
+  switch (date) {
+    case "1":
+        newList = noticesList.filter((item) => {
+            const result = getFullYears(item.date);
+    
+            if (result < 1) {
+              return item;
+            }
+          });
+      break;
+    case "2":
+      newList = noticesList.filter((item) => {
+        const result = getFullYears(item.date);
+
+        if (result >= 1) {
+          return item;
+        }
+      });
+      break;
+    case "3":
+        newList = noticesList.filter((item) => {
+            const result = getFullYears(item.date);
+    
+            if (result >= 2) {
+              return item;
+            }
+          });
+      break;
+    case "4":
+        newList = noticesList.filter((item) => {
+            const result = getFullYears(item.date);
+    
+            if (result < 1 && result >= 2) {
+              return item;
+            }
+          });
+      break;
+    default:
+      newList = noticesList;
+  }
+  let total = newList.length
+  return {newList, total};
+};
 module.exports = filterNoticesByAge;

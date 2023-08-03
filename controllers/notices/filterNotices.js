@@ -6,21 +6,24 @@ const filterNotices = async (req, res) => {
   try {
     const { page = 1, limit = 40 } = req.query;
     const skip = (page - 1) * limit;
+    const endIndex = skip + limit;
     let paginationString = {};
  
     sex ? (paginationString = { sex }) : ( paginationString = {});
     
     const noticesListForFilter = await Notice.find(
       paginationString,
-      "-createdAT -updatedAT",
-      { skip, limit }
+      "-createdAT -updatedAT"
     );
 
-    const total = await Notice.countDocuments({paginationString})
+    
+    const filteredNoticesList = filterNoticesByAge(noticesListForFilter, date).newList
+    const total = filterNoticesByAge(noticesListForFilter, date).total
 
-    const noticesList = filterNoticesByAge(noticesListForFilter, date)
+    const noticesList = filteredNoticesList.slice(skip, endIndex)
+    // console.log('noticesList :>> ', noticesList);
     // console.log(date, noticesList)
-    // console.log('total :>> ', total);
+    console.log('total :>> ', total);
 
     return res.status(200).json({noticesList, total});
   } catch (err) {

@@ -47,8 +47,17 @@ const noticeSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
+    ownerEmail: {
+      type: String,
+      default:'no email'
+    }, 
+    ownerPhone: {
+      type: String,
+      default:'no phone'
+    },
     fileURL: String,
   },
+  
     {
       timestamps: true,
       versionKey: false

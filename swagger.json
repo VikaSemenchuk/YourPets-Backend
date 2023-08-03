@@ -515,7 +515,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                    "$ref": "#components/schemas/GetFavoriteNoticesResponse"
                                 }
                             }
                         }
@@ -645,6 +645,71 @@
                         "type": "string",
                         "description": "Notice's title",
                         "required": false
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "Number of page"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "Number of notices on one page"
+                    }
+                ],
+                "requestBody": {},
+                "responses": {
+                    "200": {
+                        "description": "Request success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bed request",
+                        "content": {}
+                    },
+                    "401": {
+                        "description": "Not authorized",
+                        "content": {}
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {}
+                    }
+                }
+            }
+        },
+        "/notices/users/filter": {
+            "get": {
+                "tags": [
+                    "Notices"
+                ],
+                "summary": "Filter notice by sex and date field",
+                "parameters": [
+                    {
+                        "name": "sex",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sex of pet in notice",
+                        "required": false,
+                        "enum": ["male", "female"]
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "type": "string",
+                        "description": "'1' - age 3 - 12 m; '2' - age up from 1 year; '3' - age up from 2 year; '4' - age up to 1 year and up from 2 year",
+                        "required": false,
+                        "enum": ["1", "2", "3", "4"]
                     },
                     {
                         "name": "page",
@@ -1091,6 +1156,16 @@
                         "description": "User's id",
                         "example": "fmhdjrg7rgbghy7"
                     },
+                    "ownerEmail": {
+                        "type": "string",
+                        "description": "User's email",
+                        "example": "fmhdjrg7rgbghy7"
+                    },
+                    "ownerPhone": {
+                        "type": "string",
+                        "description": "User's phone",
+                        "example": "fmhdjrg7rgbghy7"
+                    },
                     "createdAt": {
                         "type": "string",
                         "description": "Date of creating notice",
@@ -1421,6 +1496,27 @@
                 "$ref": "#components/schemas/UsersSchemaResponse"
             },
             "GetNoticesResponse": {
+                "type": "object",
+                "description": "Object with array of notices and total number of notices",
+                "properties": {
+                   
+                    "noticesList": {
+                        "type": "array",
+                        "description": "Notices with pagination",
+                        "items": {
+                            "type": "object",
+                            "description": "Notice",
+                            "$ref": "#components/schemas/GetNoticeByIdResponse"
+                        }
+                    },
+                    "total": {
+                        "type": "integer",
+                        "description": "total number of notices",
+                        "example": 24
+                    }
+                }
+            },
+            "GetFavoriteNoticesResponse": {
                 "type": "object",
                 "description": "Object with array of notices and total number of notices",
                 "properties": {
