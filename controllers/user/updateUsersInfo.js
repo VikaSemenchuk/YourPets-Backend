@@ -12,16 +12,23 @@ const updateUsersInfo = async (req, res, next) => {
     const userI = await User.findByIdAndUpdate(
       _id,
       {
-        email: user.email,
-        name: user.name,
-        birthday: user.birthday,
-        phone: user.phone,
-        city: user.city,
+        ...req.body,
         avatarURL: req.file.path
       },
       { new: true }
     );
-    res.status(200).json(userI);
+    res.status(200).json({
+      _id,
+      email: userI.email,
+        name: userI.name,
+        birthday: userI.birthday,
+        phone: userI.phone,
+        avatarURL: userI.avatarURL,
+        city: userI.city,
+        avatarURL: userI.avatarURL,
+        favorites: req.user.favorites
+    
+    });
   } catch (err) {
     console.log(err);
     res.status(500);
