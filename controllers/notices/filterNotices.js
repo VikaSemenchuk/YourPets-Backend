@@ -10,15 +10,19 @@ const filterNotices = async (req, res) => {
  
     sex ? (paginationString = { sex }) : ( paginationString = {});
     
-    const noticesList = await Notice.find(
+    const noticesListForFilter = await Notice.find(
       paginationString,
       "-createdAT -updatedAT",
       { skip, limit }
     );
-    const filteredNoticesList = filterNoticesByAge(noticesList, date)
-    // console.log(date, noticesList)
 
-    return res.status(200).json(filteredNoticesList);
+    const total = await Notice.countDocuments({paginationString})
+
+    const noticesList = filterNoticesByAge(noticesListForFilter, date)
+    // console.log(date, noticesList)
+    // console.log('total :>> ', total);
+
+    return res.status(200).json({noticesList, total});
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });
