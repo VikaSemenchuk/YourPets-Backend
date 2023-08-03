@@ -1,6 +1,6 @@
 # yourPets-backend
 
-<h1>🙃 yourPets-backend Final-project 👉 <a href="https://" target="_blank" rel="noreferrer">api-docs-link</a></h1>
+<h1>🙃 yourPets-backend Final-project 👉 <a href="https://yourpets.onrender.com/api-docs/" target="_blank" rel="noreferrer">api-docs-link</a></h1>
 
 <h2><img src="/tmp/favicon.ico" alt="favicon"> <a href="https://github.com/VikaSemenchuk/yourPets-backend" target="_blank" rel="noreferrer">Your Pet</a></h2>
 <p>Сайт для пошуку тварин.</p>
@@ -21,4 +21,4 @@
 </ul>
 
 <h3>yourPets  Final-project 👉 
-<a href="https://" target="_blank" rel="noreferrer">github-link</a></h2>
+<a href="https://github.com/VikaSemenchuk/yourPets-backend.git" target="_blank" rel="noreferrer">github-link</a></h2>
