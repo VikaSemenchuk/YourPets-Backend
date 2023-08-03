@@ -2,7 +2,7 @@
 
 <h1>🙃 yourPets-backend Final-project 👉 <a href="https://yourpets.onrender.com/api-docs/" target="_blank" rel="noreferrer">api-docs-link</a></h1>
 
-<h2><img src="/tmp/favicon.ico" alt="favicon"> <a href="https://github.com/VikaSemenchuk/yourPets-backend" target="_blank" rel="noreferrer">Your Pet</a></h2>
+<h2><img src="/temp/favicon.ico" alt="favicon"> <a href="https://github.com/VikaSemenchuk/yourPets-backend" target="_blank" rel="noreferrer">Your Pet</a></h2>
 <p>Сайт для пошуку тварин.</p>
 
 <h3>This project was created using:</h3>
