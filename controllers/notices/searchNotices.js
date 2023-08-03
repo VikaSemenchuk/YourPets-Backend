@@ -41,7 +41,7 @@ const searchNotices = async (req, res) => {
       noticesList = checkTitle2(allNotices, title, skip, limit).noticesSlice;
      
 
-    } else if (category && title === undefined) {
+    } else if (category && title) {
       paginationString = { category };
 
       noticesList = await Notice.find(
