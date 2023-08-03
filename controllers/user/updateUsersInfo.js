@@ -7,18 +7,17 @@ const updateUsersInfo = async (req, res, next) => {
     }
 
     const { _id } = req.user;
-    console.log("req.body :>> ", req.body);
+    const user = req.body
+    console.log("req.body :>> ", user);
     const userI = await User.findByIdAndUpdate(
       _id,
       {
-        email: userI.email,
-        name: userI.name,
-        birthday: userI.birthday,
-        phone: userI.phone,
-        avatarURL: userI.avatarURL,
-        city: userI.city,
-        avatarURL: req.file.path,
-        favorites: userI.favorites
+        email: user.email,
+        name: user.name,
+        birthday: user.birthday,
+        phone: user.phone,
+        city: user.city,
+        avatarURL: req.file.path
       },
       { new: true }
     );
