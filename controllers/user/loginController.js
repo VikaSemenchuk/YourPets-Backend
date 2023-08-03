@@ -27,17 +27,22 @@ const login = async (req, res) => {
 
     await User.findByIdAndUpdate(userI._id, { token });
 
-    return res
-      .status(200)
-      .json({
-        token,
-        user: { email: userI.email},
-      });
+    return res.status(200).json({
+      token,
+      user: {
+        email: userI.email,
+        name: userI.name,
+        birthday: userI.birthday,
+        phone: userI.phone,
+        avatarURL: userI.avatarURL,
+        city: userI.city
+      },
+    });
   } catch (err) {
     return res.status(500).json({ message: `Ooops... ${err.message}` });
   }
 };
 
 module.exports = {
-  login
+  login,
 };

@@ -2,6 +2,7 @@ const { Notice } = require("../../models/notices");
 
 const addNotice = async (req, res) => {
   const { _id: owner, email: ownerEmail, phone: ownerPhone } = req.user;
+  // console.log('req.user :>> ', req.user);
 
   try {
     if (!req.file) {
@@ -13,7 +14,7 @@ const addNotice = async (req, res) => {
       fileURL: req.file.path,
       owner,
       ownerEmail,
-      ownerPhone
+      ownerEmail
     });
 
     res.status(201).json(noticeUpdate);

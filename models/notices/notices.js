@@ -49,7 +49,7 @@ const noticeSchema = mongoose.Schema(
     },
     ownerEmail: {
       type: String,
-      default:'no email'
+      default:'user@example.com'
     }, 
     ownerPhone: {
       type: String,
