@@ -95,11 +95,7 @@
                 ],
                 "summary": "User login",
                 "parameters": [],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
+               
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -136,7 +132,7 @@
                 }
             }
         },
-        "/users/update/avatar": {
+        "/users/info/update": {
             "patch": {
                 "tags": [
                     "Users"

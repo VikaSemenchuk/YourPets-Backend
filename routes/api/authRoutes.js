@@ -17,7 +17,7 @@ router.post("/logout", authenticate, logout);
 
 router.get("/current", authenticate, getCurrent);
 router.patch(
-  "/update/avatar",
+  "/info/update",
   authenticate,
   upload.single("avatar"),
   updateUsersInfo
