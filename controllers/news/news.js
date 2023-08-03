@@ -1,21 +1,36 @@
 const { checkResult } = require("../../helpers");
+const { checkTitle2 } = require("../../helpers/checkTitle");
 const { New } = require("../../models/news");
 
 const getAllNews = async (req, res) => {
   try {
-    const { page = 1, limit = 9 } = req.query;
+    let { page = 1, limit = 9, title } = req.query;
+    page = +page;
+    limit = +limit;
     const skip = (page - 1) * limit;
 
-    const newsList = await New.find({}, "-createdAT -updatedAT", {
-      limit,
-      skip,
-    }).sort({ date: -1 });
+    let newsList = [];
+    let total = 0;
 
-    checkResult(newsList);
+    if (title === undefined) {
+      newsList = await New.find({}, "-createdAT -updatedAT", {
+        limit,
+        skip,
+      }).sort({ date: -1 });
 
-    const total = await New.countDocuments({})
+      checkResult(newsList);
 
-    return res.status(200).json({newsList, total});
+      total = await New.countDocuments({});
+    }
+
+    if (title) {
+      const allNotices = await New.find({});
+
+      newsList = checkTitle2(allNotices, title, skip, limit).noticesSlice;
+      total = checkTitle2(allNotices, title, skip, limit).total;
+    }
+
+    return res.status(200).json({ newsList, total });
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -24,5 +39,3 @@ const getAllNews = async (req, res) => {
 module.exports = {
   getAllNews,
 };
-
-
