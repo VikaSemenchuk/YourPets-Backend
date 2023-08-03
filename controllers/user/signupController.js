@@ -13,11 +13,8 @@ const signup = async (req, res, next) => {
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ ...req.body, password: hashPassword });
-     next();
-    // return res.status(201).json({
-    //   user: { email: newUser.email, subscription: newUser.subscription },
-    // });
+    await User.create({ ...req.body, password: hashPassword });
+    next();
   } catch (err) {
     res.status(500).json({ message: `Ooops... ${err.message}` });
   }
