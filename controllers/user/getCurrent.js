@@ -2,25 +2,40 @@ const User = require("../../models/users/users");
 
 const getCurrent = async (req, res) => {
   try {
-    const { email } = req.user;
+    const { email, favorites } = req.user;
     const userI = await User.findOne({ email });
+
     if (!userI) {
       return res.status(401).json({
         message: "Email or password is wrong",
       });
     }
+
+    const {
+      _id,
+      name,
+      birthday,
+      phone,
+      avatarURL,
+      city,
+      token,
+      createdAt,
+      updatedAt,
+    } = userI;
+
     return res.status(200).json({
       userI: {
-        _id: userI._id,
-        email: userI.email,
-        name: userI.name,
-        birthday: userI.birthday,
-        phone: userI.phone,
-        avatarURL: userI.avatarURL,
-        city: userI.city,
-        token: userI.token,
-        avatarURL: userI.avatarURL,
-        favorites: req.user.favorites,
+        _id,
+        email,
+        name,
+        birthday,
+        phone,
+        avatarURL,
+        city,
+        token,
+        favorites,
+        createdAt,
+        updatedAt,
       },
     });
   } catch (err) {

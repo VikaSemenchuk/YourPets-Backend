@@ -561,7 +561,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/GetNoticesResponse"
+                                    "$ref": "#components/schemas/AddNoticeResponse"
                                 }
                             }
                         }
@@ -605,7 +605,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/DeleteNoticeByIdResponse"
+                                    "$ref": "#components/schemas/GetNoticeByIdResponse"
                                 }
                             }
                         }
@@ -828,7 +828,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/AddPetResponse"
+                                    "$ref": "#components/schemas/AddPetByIdResponse"
                                 }
                             }
                         }
@@ -854,16 +854,30 @@
                     "Pets"
                 ],
                 "summary": "Remove pet by id",
-                "parameters": [],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "description": "Notice's id",
+                        "required": true
+                    }
+                ],
                 "security": [
                     {
                         "Bearer": []
                     }
                 ],
                 "responses": {
-                    "204": {
+                    "200": {
                         "description": "Pet deleted",
-                        "content": {}
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/AddPetByIdResponse"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Bed request",
@@ -996,11 +1010,6 @@
                         "description": "User's email",
                         "format": "email"
                     },
-                    "password": {
-                        "type": "string",
-                        "description": "User's password",
-                        "example": "Qwer12"
-                    },
                     "birthday": {
                         "type": "string",
                         "description": "User's birthday date",
@@ -1059,7 +1068,7 @@
                     "fileURL": {
                         "type": "string",
                         "description": "Pet's photo",
-                        "example": "fmhdjrg7rgbghy7",
+                        "example": "https://res.cloudinary.com/dxmtevsut/image/upload/v1690956017/petsshop/Jei.png.png",
                         "format": "binary"
                     },
                     "title": {
@@ -1433,6 +1442,31 @@
                                 "type": "string",
                                 "description": "User's email",
                                 "format": "email"
+                            },
+                            "name": {
+                                "type": "string",
+                                "description": "User's name",
+                                "example": "Your name"
+                            },
+                            "birthday": {
+                                "type": "string",
+                                "description": "User's birthday date",
+                                "format": "date-time"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "description": "User's phone number",
+                                "example": "+380000000000"
+                            },
+                            "city": {
+                                "type": "string",
+                                "description": "User's city",
+                                "example": "City"
+                            },
+                            "avatarURL": {
+                                "type": "string",
+                                "description": "User's avatar",
+                                "format": "binary"
                             }
                         }
                     }
@@ -1455,7 +1489,6 @@
                 "type": "object",
                 "description": "Object with array of notices and total number of notices",
                 "properties": {
-                   
                     "noticesList": {
                         "type": "array",
                         "description": "Notices with pagination",
@@ -1504,12 +1537,23 @@
             "AddNoticeResponse": {
                 "type": "object",
                 "description": "Response after adding new notice",
-                "$ref": "#components/schemas/AddNoticeByIdRequest"
+                "$ref": "#components/schemas/GetNoticeByIdResponse"
             },
             "DeleteNoticeByIdResponse": {
                 "type": "object",
                 "description": "Deleted notice",
-                "$ref": "#components/schemas/GetNoticeByIdResponse"
+                "properties": {
+                    "message": {
+                        "type":"string",
+                        "description": "message about deleted",
+                        "example": "Notice deleted"
+                    },
+                    "items": {
+                        "type": "object",
+                        "description": "Notice",
+                        "$ref": "#components/schemas/GetNoticeByIdResponse"
+                    }
+                }
             },
             "GetPetResponse": {
                 "type": "array",
@@ -1561,7 +1605,7 @@
                     }
                 }
             },
-            "AddPetResponse": {
+            "AddPetByIdResponse": {
                 "type": "object",
                 "description": "Response after adding new pet",
                 "properties": {
@@ -1574,6 +1618,12 @@
                         "type": "object",
                         "description": "New notice",
                         "properties": {
+                            "fileURL": {
+                                "type": "string",
+                                "description": "Pet's photo",
+                                "example": "https://res.cloudinary.com/dxmtevsut/image/upload/v1690956017/petsshop/Jei.png.png",
+                                "format": "binary"
+                            },
                             "name": {
                                 "type": "string",
                                 "description": "Name of pet",
@@ -1615,43 +1665,6 @@
                                 "example": "date-time"
                             }
                         }
-                    }
-                }
-            },
-            "DeletePetByIdResponse": {
-                "type": "object",
-                "description": "Deleted pet",
-                "properties": {
-                    "fileURL": {
-                        "type": "string",
-                        "description": "Pet's photo",
-                        "example": "fmhdjrg7rgbghy7",
-                        "format": "binary"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "Name of pet",
-                        "example": "User"
-                    },
-                    "date": {
-                        "type": "string",
-                        "description": "Birthday date of pet",
-                        "example": "24.08.1991"
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "Type of pet in pet",
-                        "example": "dog"
-                    },
-                    "comments": {
-                        "type": "string",
-                        "description": "Comment to user's pet",
-                        "example": "Comment for example"
-                    },
-                    "owner": {
-                        "type": "string",
-                        "description": "User's id",
-                        "example": "fmhdjrg7rgbghy7"
                     }
                 }
             },

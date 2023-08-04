@@ -24,18 +24,19 @@ const login = async (req, res) => {
     };
 
     const token = await signToken(payload);
+    const { name, birthday, phone, avatarURL, city } = userI;
 
     await User.findByIdAndUpdate(userI._id, { token });
 
     return res.status(200).json({
       token,
       user: {
-        email: userI.email,
-        name: userI.name,
-        birthday: userI.birthday,
-        phone: userI.phone,
-        avatarURL: userI.avatarURL,
-        city: userI.city
+        email,
+        name,
+        birthday,
+        phone,
+        avatarURL,
+        city,
       },
     });
   } catch (err) {

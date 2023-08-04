@@ -14,7 +14,7 @@ const addNotice = async (req, res) => {
       fileURL: req.file.path,
       owner,
       ownerEmail,
-      ownerEmail
+      ownerEmail,
     });
 
     res.status(201).json(noticeUpdate);

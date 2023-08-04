@@ -14,6 +14,7 @@ const signup = async (req, res, next) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
     await User.create({ ...req.body, password: hashPassword });
+
     next();
   } catch (err) {
     res.status(500).json({ message: `Ooops... ${err.message}` });

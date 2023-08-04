@@ -6,9 +6,9 @@ const updateUsersInfo = async (req, res, next) => {
       res.status(500).json({ message: "Your file is not valid or added" });
     }
 
-    const { _id } = req.user;
+    const { _id, favorites } = req.user;
     const user = req.body;
-    console.log("req.body :>> ", user);
+
     const userI = await User.findByIdAndUpdate(
       _id,
       {
@@ -17,16 +17,31 @@ const updateUsersInfo = async (req, res, next) => {
       },
       { new: true }
     );
+
+    const {
+      email,
+      name,
+      birthday,
+      phone,
+      avatarURL,
+      city,
+      token,
+      createdAt,
+      updatedAt,
+    } = userI;
+
     res.status(200).json({
       _id,
-      email: userI.email,
-      name: userI.name,
-      birthday: userI.birthday,
-      phone: userI.phone,
-      avatarURL: userI.avatarURL,
-      city: userI.city,
-      avatarURL: userI.avatarURL,
-      favorites: req.user.favorites,
+      email,
+      name,
+      birthday,
+      phone,
+      avatarURL,
+      city,
+      token,
+      favorites,
+      createdAt,
+      updatedAt,
     });
   } catch (err) {
     console.log(err);
