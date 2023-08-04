@@ -1,13 +1,11 @@
 const User = require("../../models/users/users");
+const { HttpError } = require("../../helpers");
 
 const updateUsersInfo = async (req, res, next) => {
   try {
-    if (!req.file) {
-      res.status(500).json({ message: "Your file is not valid or added" });
-    }
+    if (!req.file) throw HttpError(500, "Your file is not valid or added");
 
     const { _id, favorites } = req.user;
-    const user = req.body;
 
     const userI = await User.findByIdAndUpdate(
       _id,
@@ -44,7 +42,7 @@ const updateUsersInfo = async (req, res, next) => {
       updatedAt,
     });
   } catch (err) {
-    res.status(500);
+    next(err);
   }
 };
 

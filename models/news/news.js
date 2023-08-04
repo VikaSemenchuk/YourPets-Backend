@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { mongooseError } = require('../../middlewares');
   const Schema = mongoose.Schema;
 
   const newsSchema = Schema({
@@ -13,6 +14,7 @@ const mongoose = require('mongoose');
     versionKey: false
 })
 
+newsSchema.post("save", mongooseError)
 const New = mongoose.model('New', newsSchema);
 
 module.exports = New

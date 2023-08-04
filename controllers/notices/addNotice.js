@@ -1,11 +1,12 @@
 const { Notice } = require("../../models/notices");
+const { checkResult } = require("../../helpers");
 
-const addNotice = async (req, res) => {
+const addNotice = async (req, res, next) => {
   const { _id: owner, email: ownerEmail, phone: ownerPhone } = req.user;
 
   try {
     if (!req.file) {
-      res.status(500);
+      next();
     }
 
     const noticeUpdate = await Notice.create({
@@ -16,6 +17,7 @@ const addNotice = async (req, res) => {
       ownerEmail,
     });
 
+    checkResult(noticeUpdate);
     res.status(201).json(noticeUpdate);
   } catch (err) {
     res.status(500).json({ message: "Ooops... Something brakes in Avatar" });

@@ -1,30 +1,28 @@
 const Notice = require("../../models/notices/notices");
 const User = require("../../models/users/users");
+const { checkResult, HttpError } = require("../../helpers");
 
-const addFavorites = async (req, res) => {
+const addFavorites = async (req, res, next) => {
   const { id } = req.params;
   try {
     const favNotice = await Notice.findById(id);
-    if (!favNotice) {
-      return res.status(404).json({ message: "Not found" });
-    }
-
     const usersInfo = await User.findById(req.user._id);
     const usersFavorite = usersInfo.favorites;
 
     for (const item of usersFavorite) {
-      if (item._id.toString() === id)
-        res.status(400).json({ message: "Already added" });
+      if (item._id.toString() === id) throw HttpError(404, "Already added");
     }
 
-    const newUser = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       req.user._id,
       { $push: { favorites: favNotice } },
       { new: true }
     );
+
+    checkResult(favNotice);
     return res.status(200).json(favNotice);
   } catch (err) {
-    res.status(500).json({ message: "Ooops... ListContacts" });
+    next(err);
   }
 };
 

@@ -1,10 +1,11 @@
 const Pet = require("../../models/pets/pets");
+const { checkResult } = require("../../helpers");
 
-const addPet = async (req, res) => {
+const addPet = async (req, res, next) => {
   const { _id: owner } = req.user;
   try {
     if (!req.file) {
-      res.status(500).json({ message: "Your file is not valid or added" });
+      next();
     }
 
     const item = await Pet.create({
@@ -13,9 +14,10 @@ const addPet = async (req, res) => {
       owner,
     });
 
+    checkResult(item);
     return res.status(201).json({ message: "Pet is added", item });
   } catch (err) {
-    res.status(405).json({ message: "Ooops..." });
+    next(err);
   }
 };
 

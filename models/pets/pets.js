@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { mongooseError } = require("../../middlewares");
 const Schema = mongoose.Schema;
 
 const petSchema = mongoose.Schema(
@@ -31,6 +32,7 @@ const petSchema = mongoose.Schema(
   }
 );
 
+petSchema.post("save", mongooseError)
 const Pet = mongoose.model("Pet", petSchema);
 
 module.exports = Pet;

@@ -1,6 +1,6 @@
 const User = require("../../models/users/users");
 
-const logout = async (req, res) => {
+const logout = async (req, res, next) => {
   try {
     const { id } = req.user;
 
@@ -8,7 +8,7 @@ const logout = async (req, res) => {
 
     return res.status(204).json({ message: "Logout success" });
   } catch (err) {
-    res.status(500);
+   next()
   }
 };
 

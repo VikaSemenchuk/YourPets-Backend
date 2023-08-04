@@ -1,9 +1,10 @@
-const validateBody = require('./validateBody')
+
 const authenticate = require('./authMiddleware')
 const upload = require('./uploadMiddleware')
+const mongooseError = require('./mongooseError')
 
 module.exports = {
-    validateBody,
     authenticate,
-    upload
+    upload,
+    mongooseError
 }

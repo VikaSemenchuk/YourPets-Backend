@@ -1,9 +1,9 @@
-const {listPets} = require('./listPets')
-const {addPet} = require('./addPet')
-const {removePet} = require('./removePet')
+const { listPets } = require("./listPets");
+const { addPet } = require("./addPet");
+const { removePet } = require("./removePet");
 
 module.exports = {
-    listPets,
-    addPet,
-    removePet,
-  };
+  listPets,
+  addPet,
+  removePet,
+};

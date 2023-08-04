@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const emailRegex = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/ 
 const gravatar = require('gravatar');
+const { mongooseError } = require('../../middlewares');
 
 const userSchema = mongoose.Schema(
     {
@@ -53,6 +54,7 @@ const userSchema = mongoose.Schema(
     }
 );
 
+userSchema.post("save", mongooseError)
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

@@ -1,8 +1,7 @@
-const { checkResult } = require("../../helpers");
-const { checkTitle } = require("../../helpers/checkTitle");
 const { New } = require("../../models/news");
+const { checkResult, pagination, checkTitle } = require("../../helpers");
 
-const getAllNews = async (req, res) => {
+const getAllNews = async (req, res, next) => {
   try {
     let { page = 1, limit = 9, title } = req.query;
     page = +page;
@@ -13,28 +12,27 @@ const getAllNews = async (req, res) => {
     let total = 0;
 
     if (title === undefined) {
+      total = await New.countDocuments({});
       newsList = await New.find({}, "-createdAT -updatedAT", {
         limit,
         skip,
       }).sort({ date: -1 });
-
-      checkResult(newsList);
-
-      total = await New.countDocuments({});
     }
 
     if (title) {
       const allNotices = await New.find({});
+      const checkTitleResult = checkTitle(allNotices, title);
 
-      newsList = checkTitle(allNotices, title, skip, limit).noticesSlice;
-      total = checkTitle(allNotices, title, skip, limit).total;
-
-      
+      newsList = pagination(checkTitleResult, skip, limit).noticesSlice;
+      total = pagination(checkTitleResult, skip, limit).total;
     }
+
+    checkResult(newsList);
+    checkResult(total);
 
     return res.status(200).json({ newsList, total });
   } catch (error) {
-    res.status(500).json(error.message);
+    next(error);
   }
 };
 

@@ -1,33 +1,41 @@
 const { Notice } = require("../../models/notices");
-const {filterNoticesByAge }= require('../../helpers/index')
+const { filterNoticesByAge, checkResult } = require("../../helpers/index");
 
-const filterNotices = async (req, res) => {
+const filterNotices = async (req, res, next) => {
   const { sex, date } = req.query;
   try {
-    const { page = 1, limit = 40 } = req.query;
+    let { page = 1, limit = 8 } = req.query;
+
+    page = +page;
+    limit = +limit;
     const skip = (page - 1) * limit;
     const endIndex = skip + limit;
     let paginationString = {};
- 
-    sex ? (paginationString = { sex }) : ( paginationString = {});
-    
+
+    sex ? (paginationString = { sex }) : (paginationString = {});
+
     const noticesListForFilter = await Notice.find(
       paginationString,
       "-createdAT -updatedAT"
     );
 
+    const total = filterNoticesByAge(noticesListForFilter, date).total;
+    const filteredNoticesList = filterNoticesByAge(
+      noticesListForFilter,
+      date
+    ).newList;
     
-    const filteredNoticesList = filterNoticesByAge(noticesListForFilter, date).newList
-    const total = filterNoticesByAge(noticesListForFilter, date).total
+    const noticesList = filteredNoticesList.slice(skip, endIndex);
 
-    const noticesList = filteredNoticesList.slice(skip, endIndex)
+    checkResult(noticesList)
+    checkResult(total)
 
-    return res.status(200).json({noticesList, total});
+    return res.status(200).json({ noticesList, total });
   } catch (err) {
-    res.status(500).json({ message: "Ooops... ListContacts" });
+    next(err)
   }
 };
 
 module.exports = {
-    filterNotices,
+  filterNotices,
 };

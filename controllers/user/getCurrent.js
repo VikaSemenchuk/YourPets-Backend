@@ -1,15 +1,12 @@
 const User = require("../../models/users/users");
+const { HttpError } = require("../../helpers");
 
-const getCurrent = async (req, res) => {
+const getCurrent = async (req, res, next) => {
   try {
     const { email, favorites } = req.user;
     const userI = await User.findOne({ email });
 
-    if (!userI) {
-      return res.status(401).json({
-        message: "Email or password is wrong",
-      });
-    }
+    if (!userI) throw HttpError(401, "Email or password is wrong");
 
     const {
       _id,
@@ -39,7 +36,7 @@ const getCurrent = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).json({ message: "Ooops... Something wrong in DB" });
+    next(err);
   }
 };
 

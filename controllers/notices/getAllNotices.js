@@ -1,21 +1,25 @@
 const { Notice } = require("../../models/notices");
+const { checkResult } = require("../../helpers");
 
-const getAllNotices = async (req, res) => {
+const getAllNotices = async (req, res, next) => {
   try {
-    const { page = 1, limit = 8 } = req.query;
+    let { page = 1, limit = 8 } = req.query;
+    page = +page;
+    limit = +limit;
     const skip = (page - 1) * limit;
 
+    const total = await Notice.countDocuments({});
     const noticesList = await Notice.find({}, "-createdAT -updatedAT", {
       limit,
       skip,
     }).sort({ createdAt: -1 });
 
-    // const totalList = await Notice.find({});
-    const total = await Notice.countDocuments({});
+    checkResult(noticesList)
+    checkResult(total)
 
     return res.status(200).json({ noticesList, total });
   } catch (err) {
-    res.sendStatus(500);
+    next(err)
   }
 };
 

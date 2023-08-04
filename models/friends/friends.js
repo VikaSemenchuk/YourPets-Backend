@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { mongooseError } = require('../../middlewares');
   const Schema = mongoose.Schema;
 
   const friendsSchema = Schema({
@@ -16,6 +17,7 @@ const mongoose = require('mongoose');
     versionKey: false
 })
 
+friendsSchema.post("save", mongooseError)
 const Friend = mongoose.model('Friend', friendsSchema);
 
 module.exports = Friend

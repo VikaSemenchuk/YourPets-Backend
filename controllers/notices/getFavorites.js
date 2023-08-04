@@ -1,21 +1,25 @@
-const User = require("../../models/users/users");
+const { checkResult } = require("../../helpers");
 
-const getFavorites = async (req, res) => {
+const getFavorites = async (req, res, next) => {
   try {
-    const { page = 1, limit = 8 } = req.query;
+    let { page = 1, limit = 8 } = req.query;
+    page = +page
+    limit = +limit
     const skip = (page - 1) * limit;
     const endIndex = skip + limit;
-
-    const user =  req.user;
-
-    const allFavNotices = user.favorites;
+    
+    const allFavNotices = req.user.favorites;
 
     const total = allFavNotices.length;
     const noticesList = allFavNotices.slice(skip, endIndex);
 
+    checkResult(allFavNotices)
+    checkResult(noticesList)
+    checkResult(total)
+
     return res.status(200).json({ allFavNotices, noticesList, total });
   } catch (err) {
-    res.status(500).json({ message: "Ooops... ListContacts" });
+   next(err)
   }
 };
 

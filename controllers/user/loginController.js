@@ -1,24 +1,19 @@
 const bcrypt = require("bcryptjs");
-const signToken = require("../../helpers/signToken");
 const User = require("../../models/users/users");
+const signToken = require("../../helpers/signToken");
+const { HttpError } = require("../../helpers");
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const userI = await User.findOne({ email });
 
-    if (!userI) {
-      return res.status(401).json({
-        message: "Email or password is wrong",
-      });
-    }
+    if (!userI) throw HttpError(401, "Email or password is wrong");
+
     const passwordIsValid = await bcrypt.compare(password, userI.password);
 
-    if (!passwordIsValid) {
-      return res.status(401).json({
-        message: "Email or password is wrong",
-      });
-    }
+    if (!passwordIsValid) throw HttpError(401, "Email or password is wrong");
+
     const payload = {
       id: userI._id,
     };
@@ -40,7 +35,7 @@ const login = async (req, res) => {
       },
     });
   } catch (err) {
-    return res.status(500).json({ message: `Ooops... ${err.message}` });
+   next(err)
   }
 };
 

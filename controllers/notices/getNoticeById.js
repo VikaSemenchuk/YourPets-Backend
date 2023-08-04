@@ -1,18 +1,17 @@
 const { Notice } = require("../../models/notices");
+const { checkResult } = require("../../helpers");
 
-const getNoticeById = async (req, res) => {
+const getNoticeById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
     const item = await Notice.findById(id);
 
-    if (!item) {
-      return res.status(404).json({ message: "Not found" });
-    }
+    checkResult(item)
 
     return res.status(200).json(item);
   } catch (err) {
-    res.status(400).json({ message: "Ooops...", stack: err.stack });
+   next(err)
   }
 };
 

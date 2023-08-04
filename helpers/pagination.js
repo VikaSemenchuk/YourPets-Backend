@@ -4,13 +4,10 @@ const pagination = (notices, skip, limit) => {
   const endIndex = skip + limit;
   const noticesSlice = notices.slice(skip, endIndex);
 
-  const result = {
+  return result = {
     total,
     noticesSlice,
   };
-
-  return result;
-
 }
 
 module.exports = pagination
