@@ -43,7 +43,7 @@ const filterNoticesByAge = (noticesList, date) => {
         newList = noticesList.filter((item) => {
             const result = getFullYears(item.date);
     
-            if (result < 1 && result >= 2) {
+            if (result < 1 || result >= 2) {
               return item;
             }
           });
