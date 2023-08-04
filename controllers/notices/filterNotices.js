@@ -21,13 +21,9 @@ const filterNotices = async (req, res) => {
     const total = filterNoticesByAge(noticesListForFilter, date).total
 
     const noticesList = filteredNoticesList.slice(skip, endIndex)
-    // console.log('noticesList :>> ', noticesList);
-    // console.log(date, noticesList)
-    console.log('total :>> ', total);
 
     return res.status(200).json({noticesList, total});
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });
   }
 };

@@ -1,9 +1,8 @@
 const { Notice } = require("../../models/notices");
-const { checkTitle, checkTitle2 } = require("../../helpers/checkTitle");
+const { checkTitle } = require("../../helpers/checkTitle");
 const User = require("../../models/users/users");
 
 const searchNotices = async (req, res) => {
-  // console.log('req.user :>> ', req.user);
   const { title, category } = req.query;
   try {
     // const user = await User.
@@ -24,7 +23,7 @@ const searchNotices = async (req, res) => {
           skip,
           limit,
         }
-      ).sort({createdAt: -1});
+      ).sort({ createdAt: -1 });
 
       total = await Notice.countDocuments(paginationString);
     } else if (title && category === undefined) {
@@ -37,10 +36,8 @@ const searchNotices = async (req, res) => {
         limit,
       });
 
-      total = checkTitle2(allNotices, title, skip, limit).total;
-      noticesList = checkTitle2(allNotices, title, skip, limit).noticesSlice;
-     
-
+      total = checkTitle(allNotices, title, skip, limit).total;
+      noticesList = checkTitle(allNotices, title, skip, limit).noticesSlice;
     } else if (category && title) {
       paginationString = { category };
 
@@ -49,13 +46,12 @@ const searchNotices = async (req, res) => {
         "-createdAT -updatedAT"
       );
 
-      noticesList = checkTitle2(noticesList, title, skip, limit).noticesSlice;
-      total = checkTitle2(noticesList, title, skip, limit).total;
+      noticesList = checkTitle(noticesList, title, skip, limit).noticesSlice;
+      total = checkTitle(noticesList, title, skip, limit).total;
     }
 
     return res.status(200).json({ noticesList, total });
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Ooops... ListContacts" });
   }
 };

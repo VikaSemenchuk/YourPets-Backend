@@ -2,7 +2,6 @@ const { Notice } = require("../../models/notices");
 
 const addNotice = async (req, res) => {
   const { _id: owner, email: ownerEmail, phone: ownerPhone } = req.user;
-  // console.log('req.user :>> ', req.user);
 
   try {
     if (!req.file) {
@@ -19,7 +18,6 @@ const addNotice = async (req, res) => {
 
     res.status(201).json(noticeUpdate);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: "Ooops... Something brakes in Avatar" });
   }
 };

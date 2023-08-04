@@ -1,5 +1,5 @@
 const { checkResult } = require("../../helpers");
-const { checkTitle2 } = require("../../helpers/checkTitle");
+const { checkTitle } = require("../../helpers/checkTitle");
 const { New } = require("../../models/news");
 
 const getAllNews = async (req, res) => {
@@ -26,8 +26,10 @@ const getAllNews = async (req, res) => {
     if (title) {
       const allNotices = await New.find({});
 
-      newsList = checkTitle2(allNotices, title, skip, limit).noticesSlice;
-      total = checkTitle2(allNotices, title, skip, limit).total;
+      newsList = checkTitle(allNotices, title, skip, limit).noticesSlice;
+      total = checkTitle(allNotices, title, skip, limit).total;
+
+      
     }
 
     return res.status(200).json({ newsList, total });

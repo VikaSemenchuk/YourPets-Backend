@@ -15,7 +15,6 @@ const addPet = async (req, res) => {
 
     return res.status(201).json({ message: "Pet is added", item });
   } catch (err) {
-    console.log(err);
     res.status(405).json({ message: "Ooops..." });
   }
 };

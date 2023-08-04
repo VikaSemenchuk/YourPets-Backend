@@ -13,7 +13,6 @@ const getAllFriends = async (req, res) => {
 
     checkResult(getAllList);
     return res.status(200).json(getAllList);
-    
   } catch (error) {
     res.status(500).json(error.message);
   }

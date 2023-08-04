@@ -18,7 +18,6 @@ const noticesAddedByUser = async (req, res) => {
 
     return res.status(200).json({noticesList, total});
   } catch (err) {
-    console.log(err);
     res.status(500).json({ message: `Ooops... ${err.message}` });
   }
 };

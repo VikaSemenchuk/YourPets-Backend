@@ -44,7 +44,6 @@ const updateUsersInfo = async (req, res, next) => {
       updatedAt,
     });
   } catch (err) {
-    console.log(err);
     res.status(500);
   }
 };
