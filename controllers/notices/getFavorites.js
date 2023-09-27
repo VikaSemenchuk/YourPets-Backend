@@ -13,9 +13,9 @@ const getFavorites = async (req, res, next) => {
     const total = allFavNotices.length;
     const noticesList = allFavNotices.slice(skip, endIndex);
 
-    checkResult(allFavNotices)
-    checkResult(noticesList)
-    checkResult(total)
+    // checkResult(allFavNotices) 
+    // checkResult(noticesList)
+    // checkResult(total)
 
     return res.status(200).json({ allFavNotices, noticesList, total });
   } catch (err) {
