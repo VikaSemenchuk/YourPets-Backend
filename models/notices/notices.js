@@ -13,7 +13,7 @@ const noticeSchema = mongoose.Schema(
       required: [true, 'Set name for notice'],
     },
     date: {
-      type: String,
+      type: Date,
       required: [true, 'Set date for notice'],
     },
     category: {

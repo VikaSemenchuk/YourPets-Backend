@@ -6,20 +6,26 @@ const getFullYears = require("./getFullYears");
 
 const filterNoticesByAge = (noticesList, date) => {
   let newList;
+  let startDate;
+  let endDate;
+  let startDate2;
+  let endDate2;
+  const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
   
-  // const getFullYears = (date) => {
-  //   const rightDate = date.split("-").reverse().join("-");
-  //   const targetDate = new Date(rightDate);
-  //   const currentDate = new Date();
-  //   const dif = currentDate - targetDate;
-  //   const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
+  const getFullYears = (date) => {
+    const rightDate = date.split("-").reverse().join("-");
+    const targetDate = new Date(rightDate);
+    const currentDate = new Date();
+    const dif = currentDate - targetDate;
 
-  //   return Math.floor(dif / millisecondsInYear);
-  // };
+    return Math.floor(dif / millisecondsInYear);
+  };
 
   switch (date) {
     case "1":
-        newList = noticesList.filter((item) => {
+      startDate = new Date() - millisecondsInYear
+      endDate = new Date()
+         newList = noticesList.filter((item) => {
             const result = getFullYears(item.date);
     
             if (result < 1) {
