@@ -1,15 +1,21 @@
+// const getFullYears = require("./getFullYears");
+// const { getFullYears } = require("../helpers");
+
+const getFullYears = require("./getFullYears");
+
+
 const filterNoticesByAge = (noticesList, date) => {
   let newList;
   
-  const getFullYears = (date) => {
-    const rightDate = date.split("-").reverse().join("-");
-    const targetDate = new Date(rightDate);
-    const currentDate = new Date();
-    const dif = currentDate - targetDate;
-    const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
+  // const getFullYears = (date) => {
+  //   const rightDate = date.split("-").reverse().join("-");
+  //   const targetDate = new Date(rightDate);
+  //   const currentDate = new Date();
+  //   const dif = currentDate - targetDate;
+  //   const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
 
-    return Math.floor(dif / millisecondsInYear);
-  };
+  //   return Math.floor(dif / millisecondsInYear);
+  // };
 
   switch (date) {
     case "1":

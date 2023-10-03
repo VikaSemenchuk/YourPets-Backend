@@ -15,10 +15,10 @@
     ],
     "servers": [
         {
-            "url": "https://yourpets.onrender.com/api"
+            "url": "http://localhost:3000/api"
         },
         {
-            "url": "http://localhost:3000/api"
+            "url": "https://yourpets.onrender.com/api"
         }
     ],
     "tags": [
@@ -95,7 +95,6 @@
                 ],
                 "summary": "User login",
                 "parameters": [],
-               
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -267,6 +266,44 @@
                 ],
                 "summary": "Get all notices",
                 "parameters": [
+                    {
+                        "name": "sex",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Sex of pet in notice",
+                        "required": false,
+                        "enum": [
+                            "male",
+                            "female"
+                        ]
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "type": "string",
+                        "description": "'1' - age 3 - 12 m; '2' - age up from 1 year; '3' - age up from 2 year; '4' - age up to 1 year and up from 2 year",
+                        "required": false,
+                        "enum": [
+                            "1",
+                            "2",
+                            "3",
+                            "4"
+                        ]
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Notice's category",
+                        "required": false
+                    },
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Notice's title",
+                        "required": false
+                    },
                     {
                         "name": "page",
                         "in": "query",
@@ -701,7 +738,10 @@
                         "type": "string",
                         "description": "Sex of pet in notice",
                         "required": false,
-                        "enum": ["male", "female"]
+                        "enum": [
+                            "male",
+                            "female"
+                        ]
                     },
                     {
                         "name": "date",
@@ -709,7 +749,12 @@
                         "type": "string",
                         "description": "'1' - age 3 - 12 m; '2' - age up from 1 year; '3' - age up from 2 year; '4' - age up to 1 year and up from 2 year",
                         "required": false,
-                        "enum": ["1", "2", "3", "4"]
+                        "enum": [
+                            "1",
+                            "2",
+                            "3",
+                            "4"
+                        ]
                     },
                     {
                         "name": "page",
@@ -1544,7 +1589,7 @@
                 "description": "Deleted notice",
                 "properties": {
                     "message": {
-                        "type":"string",
+                        "type": "string",
                         "description": "message about deleted",
                         "example": "Notice deleted"
                     },

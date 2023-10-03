@@ -1,5 +1,3 @@
-const { checkResult } = require("../../helpers");
-
 const getFavorites = async (req, res, next) => {
   try {
     let { page = 1, limit = 8 } = req.query;
