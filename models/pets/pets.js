@@ -9,7 +9,7 @@ const petSchema = mongoose.Schema(
       required: [true, "Set name for pet"],
     },
     date: {
-      type: String,
+      type: Date,
       required: [true, "Birthday date of pet"],
     },
     type: {
