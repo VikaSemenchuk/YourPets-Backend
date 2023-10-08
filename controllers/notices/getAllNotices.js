@@ -5,19 +5,15 @@ const { now } = require("mongoose");
 const getAllNotices = async (req, res, next) => {
   try {
     const { title, category, sex, date } = req.query;
-    let {page = 1, limit = 8} = req.query
+    let { page = 1, limit = 8 } = req.query;
 
-    page = +page
-    limit = +limit
+    page = +page;
+    limit = +limit;
     const skip = (page - 1) * limit;
 
     const pipeline = [];
     const $match = {};
 
-    let startDate;
-    let endDate;
-    let startDate2;
-    let endDate2;
     const millisecondsInYear = 1000 * 60 * 60 * 24 * 365.25;
 
     if (category) {
@@ -38,32 +34,69 @@ const getAllNotices = async (req, res, next) => {
 
     if (date) {
       // const ageFilter = 1; // Значення, яке приходить з фронтенда (1, 2, 3 або 4)
-
-      // let startDate, endDate;
+      let startDate;
+      let endDate;
+      let startDate2;
+      let endDate2;
+      // let startDate, endDate, endDate2;
+      const currentDate = new Date();
 
       // Визначення відповідних дат для фільтрації
       if (date === "1") {
-        // Фільтруємо тварин, які молодші за 1 рік (менше одного року)
-        endDate = new Date();
-        startDate = new Date();
-        startDate.setFullYear(endDate.getFullYear() - 1);
-      } else if (date === "2") {
-        // Фільтруємо тварин, які молодші за 2 роки (менше одного року)
-        endDate = new Date();
-        endDate.setFullYear(endDate.getFullYear() - 1);
+        // Тварини віком від 3 до 12 місяців (приблизно 90 днів - 365 / 4)
 
-        startDate = new Date();
-        startDate.setFullYear(endDate.getFullYear() - 2);
+        endDate = new Date();
+        endDate.setDate(currentDate.getDate() - 365 / 4);
+        startDate = new Date(currentDate);
+        startDate.setDate(currentDate.getDate() - 365); // Приблизно 3 місяці назад
+
+        console.log("startDate :>> ", startDate);
+        console.log("endDate :>> ", endDate);
+
+        $match["date"] = {
+          $gte: startDate,
+          $lt: endDate,
+          //  $gte: endDate2
+        };
+      } else if (date === "2") {
+        // Тварини віком старше 1 року (365 днів)
+
+        endDate = new Date();
+        endDate.setDate(currentDate.getDate() - 365); // 1 рік тому
+
+        console.log("endDate :>> ", endDate);
+        $match["date"] = {
+          // $gte: startDate,
+          $lte: endDate,
+          //  $gte: endDate2
+        };
       } else if (date === "3") {
-        // Фільтруємо тварин, які старші за 2 роки (більше 2 років)
+        // Тварини віком старше 2 років (730 днів)
         endDate = new Date();
-        endDate.setFullYear(endDate.getFullYear() - 2);
+        endDate.setDate(currentDate.getDate() - 365 * 2);
+
+        console.log("endDate :>> ", endDate);
+        $match["date"] = {
+          // $gte: startDate,
+          $lte: endDate,
+          //  $gte: endDate2
+        };
       } else if (date === "4") {
-        // Фільтруємо тварин, які молодші за 1 рік і старші за 2 роки
-        endDate = new Date();
-        endDate.setFullYear(endDate.getFullYear() - 2);
-        startDate = new Date();
-        startDate.setFullYear(endDate.getFullYear() - 1);
+        // Тварини віком молодше 1 року або старше 2 років
+        endDate2 = new Date();
+        endDate2.setDate(currentDate.getDate() - 365 * 2); // 2 роки тому
+        endDate = new Date(currentDate);
+        endDate.setDate(currentDate.getDate() - 365/4); // 1 рік тому
+        startDate = new Date(currentDate);
+        startDate.setDate(currentDate.getDate() - 365);
+
+        console.log("startDate :>> ", startDate);
+        console.log("endDate :>> ", endDate);
+        console.log("endDate2 :>> ", endDate2);
+        $match["$or"] = [
+          { "date": { $gte: startDate, $lte: endDate } },
+          { "date": { $lte: endDate2 } }
+        ];
       }
 
       // Підготовка фільтру для $match
@@ -83,10 +116,24 @@ const getAllNotices = async (req, res, next) => {
       //   {
       // $match["date"] = filter;
 
-      $match["date"] = {
-               $gte: startDate,
-              $lte: endDate,
-            };
+      // const $match = {
+      //   "date": {}
+      // };
+
+      // if (startDate) {
+      //  $match.date.$gte = startDate;
+      // }
+
+      // if (endDate) {
+      //   $match.date.$lt = endDate;
+      // }
+
+      // $match.date.$gte = endDate2;
+      //   $match["date"] = {
+      //     // $gte: startDate,
+      //    $lte: endDate,
+      //   //  $gte: endDate2
+      //  };
 
       // Виконуємо агрегаційний запит MongoDB з використанням пайплайну
       // db.collection.aggregate(pipeline);
@@ -195,13 +242,12 @@ const getAllNotices = async (req, res, next) => {
     }
 
     const total = await Notice.countDocuments($match);
-  if (!total) return { total, noticesList: [] };
-
+    if (!total) return { total, noticesList: [] };
 
     // pipeline.push({ $match });
 
     pipeline.push(
-      {$match},
+      { $match },
       { $skip: skip },
       { $limit: limit },
       { $sort: { createdAt: -1 } }
