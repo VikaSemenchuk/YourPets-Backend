@@ -27,8 +27,8 @@ const filterNotices = async (req, res, next) => {
     
     const noticesList = filteredNoticesList.slice(skip, endIndex);
 
-    checkResult(noticesList)
-    checkResult(total)
+    // checkResult(noticesList)
+    // checkResult(total)
 
     return res.status(200).json({ noticesList, total });
   } catch (err) {
