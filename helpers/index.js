@@ -5,6 +5,7 @@ const signToken = require('./signToken')
 const filterNoticesByAge = require('./filteredNoticesList')
 const pagination = require("./pagination")
 const getFullYears = require("./getFullYears")
+const filterOnDate = require("./filterOnDate")
 
 module.exports = {
     HttpError,
@@ -13,6 +14,7 @@ module.exports = {
     checkTitle,
     filterNoticesByAge,
     pagination,
-    getFullYears
+    getFullYears,
+    filterOnDate
 
 }
