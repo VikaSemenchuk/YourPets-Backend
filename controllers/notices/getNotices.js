@@ -1,7 +1,7 @@
 const { Notice } = require("../../models/notices");
 const { filterOnDate } = require("../../helpers");
 
-const getAllNotices = async (req, res, next) => {
+const getNotices = async (req, res, next) => {
   try {
     const { title, category, sex, date } = req.query;
     let { page = 1, limit = 8 } = req.query;
@@ -48,5 +48,5 @@ const getAllNotices = async (req, res, next) => {
 };
 
 module.exports = {
-  getAllNotices,
+  getNotices,
 };

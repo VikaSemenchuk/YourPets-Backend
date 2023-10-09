@@ -1,4 +1,4 @@
-const { getAllNotices } = require("./getAllNotices");
+const { getNotices } = require("./getNotices");
 const { addNotice } = require("./addNotice");
 const { getNoticeById } = require("./getNoticeById");
 const { searchNotices } = require("./searchNotices");
@@ -10,7 +10,7 @@ const { addFavorites } = require("./addFavorites");
 const { removeFavorites } = require("./removeFavorites");
 
 module.exports = {
-  getAllNotices,
+  getNotices,
   addNotice,
   getNoticeById,
   searchNotices,

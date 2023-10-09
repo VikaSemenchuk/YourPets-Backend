@@ -3,7 +3,7 @@
     "info": {
         "title": "yourPets",
         "description": "API for finding loving families for pets.",
-        "version": "1.0"
+        "version": "2.0"
     },
     "consumes": [
         "application/json",
@@ -264,7 +264,7 @@
                 "tags": [
                     "Notices"
                 ],
-                "summary": "Get all notices",
+                "summary": "Get all notices or by search, category, sex and age",
                 "parameters": [
                     {
                         "name": "sex",
@@ -294,8 +294,13 @@
                         "name": "category",
                         "in": "query",
                         "type": "string",
-                        "description": "Notice's category",
-                        "required": false
+                        "description": "Notice's category sell, for-free or lost-found",
+                        "required": false,
+                        "enum": [
+                            "sell",
+                            "for-free",
+                            "lost-found"
+                        ]
                     },
                     {
                         "name": "title",

@@ -4,7 +4,7 @@ const authenticate = require("../../middlewares/authMiddleware");
 const { upload } = require("../../services/cloudinary");
 
 const {
-  getAllNotices,
+  getNotices,
   addNotice,
   getNoticeById,
   searchNotices,
@@ -16,7 +16,7 @@ const {
   removeFavorites,
 } = require("../../controllers/notices");
 
-router.get("/", getAllNotices);
+router.get("/", getNotices);
 router.post("/", authenticate, upload.single("file"), addNotice);
 
 router.get("/:id", getNoticeById);
