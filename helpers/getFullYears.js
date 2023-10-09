@@ -1,5 +1,5 @@
 const getFullYears = (date) => {
-    const rightDate = date.split("-").reverse().join("-");
+    const rightDate = date.toString().split("-").reverse().join("-");
     const targetDate = new Date(rightDate);
     const currentDate = new Date();
     const dif = currentDate - targetDate;
